@@ -1,0 +1,11 @@
+[repos.{url}]
+vcs = {vcs}
+cloned = true
+bare = false
+use_proxy = false
+topics = [{topic1}, {topic2}]
+
+[proxy]
+scheme = {scheme}
+host = {host}
+port = {port}

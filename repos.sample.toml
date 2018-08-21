@@ -1,0 +1,18 @@
+[repos."https://github.com/rust-lang/rust.wiki.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["rust", "wiki"]
+
+[repos."https://github.com/actix/actix-web.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["rust_lib", "web"]
+
+[proxy]
+scheme = "socks5"
+host = "127.0.0.1"
+port = 1080
