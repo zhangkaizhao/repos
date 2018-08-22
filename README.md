@@ -26,7 +26,8 @@ Run `repos sync {repo_url}`.
 
 ### Remove an existed repo
 
-Run `repos remove {repo_url}`.
+1. Delete repo metadata from `repos.toml`
+2. Run `repos remove {repo_url}`
 
 ### Update all repos in metadata
 

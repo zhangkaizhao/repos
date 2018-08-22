@@ -12,6 +12,10 @@ fn proxy(_repos: &repos::repos::Repos) {
     println!("* port: {}", proxy.port);
 }
 
+fn sync(_repos: &repos::repos::Repos, url: &str) {
+    _repos.sync(url)
+}
+
 fn main() {
     let _repos = repos::repos::Repos::new();
     let args: Vec<String> = env::args().collect();
@@ -21,6 +25,14 @@ fn main() {
             let subcommand = &args[1];
             match &subcommand[..] {
                 "proxy" => proxy(&_repos),
+                _ => println!("Sorry, not implemented yet!"),
+            }
+        },
+        3 => {
+            let subcommand = &args[1];
+            let argument = &args[2];
+            match &subcommand[..] {
+                "sync" => sync(&_repos, &argument),
                 _ => println!("Sorry, not implemented yet!"),
             }
         },

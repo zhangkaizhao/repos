@@ -13,18 +13,24 @@ impl Hg {
 }
 
 impl Vcs for Hg {
-    fn clone(&self, url: &str, path: Path, bare: bool, use_proxy: bool) {
+    fn clone(&self, url: &str, path: &Path, bare: bool, use_proxy: bool) {
         // proxy in env
-        let mut child = Command::new("hg").arg("clone").arg(url).arg(path).spawn().unwrap();
+        let mut child = Command::new("hg")
+                                .arg("clone")
+                                .arg(url)
+                                .arg(path)
+                                .spawn().unwrap();
         let _result = child.wait().unwrap();
-        Ok()
+        ()
     }
 
-    fn update(&self, path: Path, use_proxy: bool) {
+    fn update(&self, path: &Path, use_proxy: bool) {
         // proxy in env
-        // change current directory
-        let mut child = Command::new("hg").arg("update").spawn().unwrap();
+        let mut child = Command::new("hg")
+                                .arg("update")
+                                .current_dir(path)
+                                .spawn().unwrap();
         let _result = child.wait().unwrap();
-        Ok()
+        ()
     }
 }
