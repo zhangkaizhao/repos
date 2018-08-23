@@ -10,7 +10,14 @@ vcs = "git"
 cloned = true
 bare = false
 use_proxy = false
-topics = ["rust_lib", "web"]
+topics = ["rust", "rust_lib", "web"]
+
+[repos."https://github.com/django/asgiref.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["python", "python_lib", "django", "asgi", "web"]
 
 [proxy]
 scheme = "socks5"
