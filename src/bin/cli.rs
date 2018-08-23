@@ -20,6 +20,10 @@ fn topics(_repos: &repos::repos::Repos) {
     _repos.topics()
 }
 
+fn topic(_repos: &repos::repos::Repos, url: &str) {
+    _repos.topic(url)
+}
+
 fn main() {
     let _repos = repos::repos::Repos::new();
     let args: Vec<String> = env::args().collect();
@@ -39,6 +43,7 @@ fn main() {
             match &subcommand[..] {
                 "sync" => sync(&_repos, &argument),
                 "remove" => remove(&_repos, &argument),
+                "topic" => topic(&_repos, &argument),
                 _ => println!("Sorry, not implemented yet!"),
             }
         },

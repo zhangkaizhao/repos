@@ -84,7 +84,7 @@ impl Repos {
     }
 
     pub fn topics(&self) {
-        // repos count by each topics
+        // repos count by each topic
         let repositories = self.metadata.repos.clone();
         let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
         for (url, repo) in &repositories {
@@ -103,6 +103,19 @@ impl Repos {
 
     pub fn topic(&self, _topic: &str) {
         // list all repos in topic
+        let repositories = self.metadata.repos.clone();
+        let mut urls = Vec::new();
+        for (url, repo) in &repositories {
+            let topics = &repo.topics;
+            if topics.contains(&_topic.to_string()) {
+                urls.push(url);
+            }
+        }
+        println!("Topic: {} has {} repositories:", _topic, urls.len());
+        urls.sort_unstable();
+        for url in urls {
+            println!("* {}", url)
+        }
     }
 
     pub fn stats(&self) {
