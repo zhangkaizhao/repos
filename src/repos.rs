@@ -8,6 +8,7 @@
 /// - search
 /// - proxy
 
+use std::collections::HashMap;
 use std::path::Path;
 
 use metadata;
@@ -84,6 +85,20 @@ impl Repos {
 
     pub fn topics(&self) {
         // repos count by each topics
+        let repositories = self.metadata.repos.clone();
+        let mut topic_repo_counts: HashMap<&str, i32> = HashMap::new();
+        for (url, repo) in &repositories {
+            let topics = &repo.topics;
+            for topic in topics {
+                let counter = topic_repo_counts.entry(&topic).or_insert(0);
+                *counter += 1;
+            }
+        }
+        let topics_count = topic_repo_counts.keys().len();
+        println!("There are {} topics now.", topics_count);
+        for (topic, counter) in &topic_repo_counts {
+            println!("* {}: {} repositories.", &topic, counter);
+        }
     }
 
     pub fn topic(&self, _topic: &str) {
@@ -104,8 +119,11 @@ impl Repos {
         // Query topics and repo_url in metadata to find out matched repos
     }
 
-    pub fn proxy(&self) -> metadata::Proxy {
-        let md = self.metadata.clone();
-        md.proxy
+    pub fn proxy(&self) {
+        let proxy = self.metadata.proxy.clone();
+        println!("Proxy configuration:");
+        println!("* scheme: {}", proxy.scheme);
+        println!("* host: {}", proxy.host);
+        println!("* port: {}", proxy.port);
     }
 }

@@ -5,11 +5,7 @@ extern crate repos;
 use std::env;
 
 fn proxy(_repos: &repos::repos::Repos) {
-    let proxy = _repos.proxy();
-    println!("Proxy configuration:");
-    println!("* scheme: {}", proxy.scheme);
-    println!("* host: {}", proxy.host);
-    println!("* port: {}", proxy.port);
+    _repos.proxy()
 }
 
 fn sync(_repos: &repos::repos::Repos, url: &str) {
@@ -18,6 +14,10 @@ fn sync(_repos: &repos::repos::Repos, url: &str) {
 
 fn remove(_repos: &repos::repos::Repos, url: &str) {
     _repos.remove(url)
+}
+
+fn topics(_repos: &repos::repos::Repos) {
+    _repos.topics()
 }
 
 fn main() {
@@ -29,6 +29,7 @@ fn main() {
             let subcommand = &args[1];
             match &subcommand[..] {
                 "proxy" => proxy(&_repos),
+                "topics" => topics(&_repos),
                 _ => println!("Sorry, not implemented yet!"),
             }
         },
