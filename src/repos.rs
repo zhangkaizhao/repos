@@ -8,7 +8,7 @@
 /// - search
 /// - proxy
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::path::Path;
 
 use metadata;
@@ -86,7 +86,7 @@ impl Repos {
     pub fn topics(&self) {
         // repos count by each topics
         let repositories = self.metadata.repos.clone();
-        let mut topic_repo_counts: HashMap<&str, i32> = HashMap::new();
+        let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
         for (url, repo) in &repositories {
             let topics = &repo.topics;
             for topic in topics {
@@ -94,8 +94,8 @@ impl Repos {
                 *counter += 1;
             }
         }
-        let topics_count = topic_repo_counts.keys().len();
-        println!("There are {} topics now.", topics_count);
+        let topics_count = topic_repo_counts.len();
+        println!("There are {} topics now:", topics_count);
         for (topic, counter) in &topic_repo_counts {
             println!("* {}: {} repositories.", &topic, counter);
         }
