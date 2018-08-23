@@ -61,7 +61,7 @@ impl Repos {
         }
     }
 
-    pub fn sync_all(&self, url: &str) {
+    pub fn sync_all(&self) {
         // 1. Read each repo from metadata.
         // 2. Update each repo.
     }
@@ -70,6 +70,16 @@ impl Repos {
         // 1. Check whether repo exists in metadata.
         // 1.1 Warn repo exists in metadata, should be manually deleted first.
         // 2. Delete repo directory.
+        // 3. Notify user to manually delete repo from metadata file.
+        let repositories = self.metadata.repos.clone();
+        if repositories.contains_key(url) {
+            let local_relpath = util::repo_url_to_relpath(url);
+            let relpath = Path::new(&local_relpath);
+            util::delete_repo_relpath(relpath);
+        } else {
+            // warn
+            panic!("Repo has not been put in metadata yet.");
+        }
     }
 
     pub fn topics(&self) {

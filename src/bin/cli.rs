@@ -16,6 +16,10 @@ fn sync(_repos: &repos::repos::Repos, url: &str) {
     _repos.sync(url)
 }
 
+fn remove(_repos: &repos::repos::Repos, url: &str) {
+    _repos.remove(url)
+}
+
 fn main() {
     let _repos = repos::repos::Repos::new();
     let args: Vec<String> = env::args().collect();
@@ -33,6 +37,7 @@ fn main() {
             let argument = &args[2];
             match &subcommand[..] {
                 "sync" => sync(&_repos, &argument),
+                "remove" => remove(&_repos, &argument),
                 _ => println!("Sorry, not implemented yet!"),
             }
         },
