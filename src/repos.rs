@@ -122,14 +122,16 @@ impl Repos {
         // total repos count
         // repos count by vcs
         // repos count by each topic
-        // repos by host
+        // repos by server (host[:port])
+
+        // TODO repos not synced?
 
         let repositories = self.metadata.repos.clone();
 
         let mut repositories_count = 0;
         let mut vcs_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
         let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
-        let mut host_repo_counts: BTreeMap<String, i32> = BTreeMap::new();
+        let mut server_repo_counts: BTreeMap<String, i32> = BTreeMap::new();
 
         for (url, repo) in &repositories {
             repositories_count += 1;
@@ -144,9 +146,9 @@ impl Repos {
                 *counter += 1;
             }
 
-            let host = util::repo_host_from_url(&url);
-            let host_counter = host_repo_counts.entry(host).or_insert(0);
-            *host_counter += 1;
+            let server = util::repo_server_from_url(&url);
+            let server_counter = server_repo_counts.entry(server).or_insert(0);
+            *server_counter += 1;
         }
 
         println!("There are totally {} repositories.", repositories_count);
@@ -157,10 +159,10 @@ impl Repos {
             println!("* {}: {} repositories", &topic, counter);
         }
 
-        let hosts_count = host_repo_counts.len();
-        println!("There are {} hosts now:", hosts_count);
-        for (host, counter) in &host_repo_counts {
-            println!("* {}: {} repositories", host, counter);
+        let servers_count = server_repo_counts.len();
+        println!("There are {} servers now:", servers_count);
+        for (server, counter) in &server_repo_counts {
+            println!("* {}: {} repositories", server, counter);
         }
     }
 

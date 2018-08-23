@@ -3,11 +3,17 @@ use std::path::Path;
 
 use url::Url;
 
-/// Get repo host from repo url.
-pub fn repo_host_from_url(url: &str) -> String {
+/// Get repo server (host[:port]) from repo url.
+pub fn repo_server_from_url(url: &str) -> String {
     let parsed = Url::parse(url).unwrap();
     let host = parsed.host_str().unwrap();
-    host.to_string()
+    let port = parsed.port();
+    // URL scheme is ignored.
+    let server = match port {
+        None => host.to_owned(),
+        _ => host.to_owned() + ":" + &port.unwrap().to_string(),
+    };
+    server.to_string()
 }
 
 /// Convert repo url to relative repo directory.
