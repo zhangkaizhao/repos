@@ -97,7 +97,7 @@ impl Repos {
         let topics_count = topic_repo_counts.len();
         println!("There are {} topics now:", topics_count);
         for (topic, counter) in &topic_repo_counts {
-            println!("* {}: {} repositories.", &topic, counter);
+            println!("* {}: {} repositories", &topic, counter);
         }
     }
 
@@ -122,7 +122,7 @@ impl Repos {
         // total repos count
         // repos count by vcs
         // repos count by each topic
-        // repos by host?
+        // repos by host
 
         let repositories = self.metadata.repos.clone();
 
@@ -154,13 +154,13 @@ impl Repos {
         let topics_count = topic_repo_counts.len();
         println!("There are {} topics now:", topics_count);
         for (topic, counter) in &topic_repo_counts {
-            println!("* {}: {} repositories.", &topic, counter);
+            println!("* {}: {} repositories", &topic, counter);
         }
 
         let hosts_count = host_repo_counts.len();
         println!("There are {} hosts now:", hosts_count);
         for (host, counter) in &host_repo_counts {
-            println!("* {}: {} repositories.", host, counter);
+            println!("* {}: {} repositories", host, counter);
         }
     }
 
