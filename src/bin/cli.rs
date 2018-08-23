@@ -14,6 +14,7 @@ fn main() {
             match &subcommand[..] {
                 "proxy" => _repos.proxy(),
                 "topics" => _repos.topics(),
+                "stats" => _repos.stats(),
                 _ => println!("Sorry, not implemented yet!"),
             }
         },

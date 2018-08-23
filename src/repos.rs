@@ -121,7 +121,47 @@ impl Repos {
     pub fn stats(&self) {
         // total repos count
         // repos count by vcs
+        // repos count by each topic
         // repos by host?
+
+        let repositories = self.metadata.repos.clone();
+
+        let mut repositories_count = 0;
+        let mut vcs_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
+        let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
+        let mut host_repo_counts: BTreeMap<String, i32> = BTreeMap::new();
+
+        for (url, repo) in &repositories {
+            repositories_count += 1;
+
+            let vcs = &repo.vcs;
+            let vcs_counter = vcs_repo_counts.entry(&vcs).or_insert(0);
+            *vcs_counter += 1;
+
+            let topics = &repo.topics;
+            for topic in topics {
+                let counter = topic_repo_counts.entry(&topic).or_insert(0);
+                *counter += 1;
+            }
+
+            let host = util::repo_host_from_url(&url);
+            let host_counter = host_repo_counts.entry(host).or_insert(0);
+            *host_counter += 1;
+        }
+
+        println!("There are totally {} repositories.", repositories_count);
+
+        let topics_count = topic_repo_counts.len();
+        println!("There are {} topics now:", topics_count);
+        for (topic, counter) in &topic_repo_counts {
+            println!("* {}: {} repositories.", &topic, counter);
+        }
+
+        let hosts_count = host_repo_counts.len();
+        println!("There are {} hosts now:", hosts_count);
+        for (host, counter) in &host_repo_counts {
+            println!("* {}: {} repositories.", host, counter);
+        }
     }
 
     pub fn cleanup(&self) {

@@ -3,6 +3,13 @@ use std::path::Path;
 
 use url::Url;
 
+/// Get repo host from repo url.
+pub fn repo_host_from_url(url: &str) -> String {
+    let parsed = Url::parse(url).unwrap();
+    let host = parsed.host_str().unwrap();
+    host.to_string()
+}
+
 /// Convert repo url to relative repo directory.
 pub fn repo_url_to_relpath(url: &str) -> String {
     let parsed = Url::parse(url).unwrap();
