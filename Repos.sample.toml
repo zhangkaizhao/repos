@@ -5,6 +5,13 @@ bare = false
 use_proxy = false
 topics = ["rust", "wiki"]
 
+[repos."https://github.com/rust-unofficial/awesome-rust.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["rust", "awesome"]
+
 [repos."https://github.com/actix/actix-web.git"]
 vcs = "git"
 cloned = true
@@ -12,12 +19,47 @@ bare = false
 use_proxy = false
 topics = ["rust", "rust_lib", "web"]
 
+[repos."https://github.com/vinta/awesome-python.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["python", "awesome"]
+
 [repos."https://github.com/django/asgiref.git"]
 vcs = "git"
 cloned = true
 bare = false
 use_proxy = false
 topics = ["python", "python_lib", "django", "asgi", "web"]
+
+[repos."https://github.com/crystal-lang/crystal.wiki.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["crystal", "wiki"]
+
+[repos."https://github.com/veelenga/awesome-crystal.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["crystal", "awesome"]
+
+[repos."https://github.com/h4cc/awesome-elixir.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["elixir", "awesome"]
+
+[repos."https://github.com/zealdocs/zeal.wiki.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = false
+topics = ["docs", "wiki"]
 
 [proxy]
 scheme = "socks5"
