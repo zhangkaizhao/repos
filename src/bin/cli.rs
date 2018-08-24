@@ -25,6 +25,7 @@ fn main() {
                 "sync" => _repos.sync(&argument),
                 "remove" => _repos.remove(&argument),
                 "topic" => _repos.topic(&argument),
+                "search" => _repos.search(&argument),
                 _ => println!("Sorry, not implemented yet!"),
             }
         },

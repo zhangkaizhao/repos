@@ -172,6 +172,32 @@ impl Repos {
 
     pub fn search(&self, keyword: &str) {
         // Query topics and repo_url in metadata to find out matched repos
+        let repositories = self.metadata.repos.clone();
+        let mut urls_by_url = Vec::new();
+        let mut urls_by_topic: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
+        for (url, repo) in &repositories {
+            if url.contains(&keyword) {
+                urls_by_url.push(url);
+            }
+            let topics = &repo.topics;
+            for topic in topics {
+                if topic.contains(&keyword) {
+                    let mut _topics = urls_by_topic.entry(&url).or_insert(Vec::new());
+                    _topics.push(topic);
+                }
+            }
+        }
+
+        urls_by_url.sort_unstable();
+        println!("There are {} repositories matched by url:", urls_by_url.len());
+        for url in urls_by_url {
+            println!("* {}", &url);
+        }
+
+        println!("There are {} repositories matched by topic:", urls_by_topic.len());
+        for (url, topics) in &urls_by_topic {
+            println!("* {} ({})", &url, topics.join(", "));
+        }
     }
 
     pub fn proxy(&self) {
