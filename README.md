@@ -13,11 +13,11 @@ Please take a look at https://github.com/toml-lang/toml to get a quick introduct
 
 ### Prepare your metadata file
 
-See `repos.sample.toml` for sample.
+See `Repos.sample.toml` for sample.
 
 ### Add a new repo
 
-1. Put new repo metadata to `repos.toml`
+1. Put new repo metadata to `Repos.toml`
 2. Run `repos sync {repo_url}`
 
 ### Update an existed repo
@@ -26,7 +26,7 @@ Run `repos sync {repo_url}`.
 
 ### Remove an existed repo
 
-1. Delete repo metadata from `repos.toml`
+1. Delete repo metadata from `Repos.toml`
 2. Run `repos remove {repo_url}`
 
 ### Update all repos in metadata
@@ -59,7 +59,7 @@ Run `repos proxy`.
 
 ## Metadata
 
-See `repos.template.toml` for overview.
+See `Repos.template.toml` for overview.
 
 ### repo
 
@@ -82,7 +82,7 @@ These files and directories are all in current/working directory (`pwd`).
 
 ### Metadata file
 
-`repos.toml`
+`Repos.toml`
 
 ### repo directory
 

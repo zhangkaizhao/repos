@@ -27,8 +27,8 @@ impl Repos {
         let root_path = Path::new(".");
         let root_dir = root_path.to_str().unwrap();
 
-        // let md_file = root_dir.to_owned() + "/repos.toml";
-        let md_file = "repos.toml";
+        // let md_file = root_dir.to_owned() + "/Repos.toml";
+        let md_file = "Repos.toml";
         let md_path = Path::new(&md_file);
         let md = metadata::load(&md_path);
 
