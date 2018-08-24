@@ -12,9 +12,10 @@ fn main() {
         2 => {
             let subcommand = &args[1];
             match &subcommand[..] {
-                "proxy" => _repos.proxy(),
+                "sync" => _repos.sync_all(),
                 "topics" => _repos.topics(),
                 "stats" => _repos.stats(),
+                "proxy" => _repos.proxy(),
                 _ => println!("Sorry, not implemented yet!"),
             }
         },

@@ -35,6 +35,21 @@ impl Repos {
         Repos { root_dir: root_dir, metadata: md }
     }
 
+    fn _sync(&self, url: &str, repo: &metadata::Repo) {
+        let local_relpath = util::repo_url_to_relpath(url);
+        let relpath = Path::new(&local_relpath);
+        let _vcs = &repo.vcs;
+        let bare = repo.bare;
+        let use_proxy = repo.use_proxy;
+        if relpath.is_dir() {
+            // Update
+            vcs::update(_vcs, &relpath, use_proxy);
+        } else {
+            // Clone
+            vcs::clone(_vcs, &url, &relpath, bare, use_proxy);
+        }
+    }
+
     /// Update an existed repo or clone a new repo.
     pub fn sync(&self, url: &str) {
         // 1. Check whether repo exists in metadata.
@@ -44,18 +59,7 @@ impl Repos {
         let repositories = self.metadata.repos.clone();
         if repositories.contains_key(url) {
             let repo = repositories.get(url).unwrap();
-            let local_relpath = util::repo_url_to_relpath(url);
-            let relpath = Path::new(&local_relpath);
-            let _vcs = &repo.vcs;
-            let bare = repo.bare;
-            let use_proxy = repo.use_proxy;
-            if relpath.is_dir() {
-                // Update
-                vcs::update(_vcs, &relpath, use_proxy);
-            } else {
-                // Clone
-                vcs::clone(_vcs, &url, &relpath, bare, use_proxy);
-            }
+            self._sync(&url, &repo);
         } else {
             // warn
             panic!("Repo has not been put in metadata yet.");
@@ -65,6 +69,11 @@ impl Repos {
     pub fn sync_all(&self) {
         // 1. Read each repo from metadata.
         // 2. Update each repo.
+        let repositories = self.metadata.repos.clone();
+        for (url, repo) in &repositories {
+            // TODO handle subprocess exceptions.
+            self._sync(&url, &repo);
+        }
     }
 
     pub fn remove(&self, url: &str) {
