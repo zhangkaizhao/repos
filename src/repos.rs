@@ -7,7 +7,6 @@
 /// - cleanup
 /// - search
 /// - proxy
-
 use std::collections::BTreeMap;
 use std::path::Path;
 
@@ -32,7 +31,10 @@ impl Repos {
         let md_path = Path::new(&md_file);
         let md = metadata::load(&md_path);
 
-        Repos { root_dir: root_dir, metadata: md }
+        Repos {
+            root_dir: root_dir,
+            metadata: md,
+        }
     }
 
     fn _sync(&self, url: &str, repo: &metadata::Repo) {
@@ -198,12 +200,18 @@ impl Repos {
         }
 
         urls_by_url.sort_unstable();
-        println!("There are {} repositories matched by url:", urls_by_url.len());
+        println!(
+            "There are {} repositories matched by url:",
+            urls_by_url.len()
+        );
         for url in urls_by_url {
             println!("* {}", &url);
         }
 
-        println!("There are {} repositories matched by topic:", urls_by_topic.len());
+        println!(
+            "There are {} repositories matched by topic:",
+            urls_by_topic.len()
+        );
         for (url, topics) in &urls_by_topic {
             println!("* {} ({})", &url, topics.join(", "));
         }

@@ -18,7 +18,7 @@ fn main() {
                 "proxy" => _repos.proxy(),
                 _ => println!("Sorry, not implemented yet!"),
             }
-        },
+        }
         3 => {
             let subcommand = &args[1];
             let argument = &args[2];
@@ -29,7 +29,7 @@ fn main() {
                 "search" => _repos.search(&argument),
                 _ => println!("Sorry, not implemented yet!"),
             }
-        },
+        }
         _ => println!("Usage: repos subcommand [argument]"),
     }
 }

@@ -5,5 +5,5 @@ extern crate url;
 
 pub mod metadata;
 pub mod repos;
-pub mod vcs;
 pub mod util;
+pub mod vcs;

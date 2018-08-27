@@ -34,19 +34,32 @@ pub fn delete_repo_relpath(relpath: &Path) {
     let local_relpath = relpath.to_str().unwrap();
     if relpath.is_dir() {
         // Delete repo directory
-        println!("Found repo directory: {}. Try to delete it...", &local_relpath);
+        println!(
+            "Found repo directory: {}. Try to delete it...",
+            &local_relpath
+        );
         fs::remove_dir_all(relpath).unwrap_or_else(|why| {
-            println!("Failed to delete repo directory: {}: {:?}.", &local_relpath, why.kind());
+            println!(
+                "Failed to delete repo directory: {}: {:?}.",
+                &local_relpath,
+                why.kind()
+            );
         });
         // TODO recurve removing empty directory.
         // Notify
         println!("Local repo directory: {} is deleted.", &local_relpath);
     } else if relpath.exists() {
         // Delete it whatever.
-        println!("The repo path: {} is not a directory. Try to delete it whatever...",
-                 &local_relpath);
+        println!(
+            "The repo path: {} is not a directory. Try to delete it whatever...",
+            &local_relpath
+        );
         fs::remove_file(relpath).unwrap_or_else(|why| {
-            println!("Failed to delete repo path: {}: {:?}.", &local_relpath, why.kind());
+            println!(
+                "Failed to delete repo path: {}: {:?}.",
+                &local_relpath,
+                why.kind()
+            );
         });
         // Notify
         println!("Local repo path: {} is deleted.", &local_relpath);

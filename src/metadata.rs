@@ -5,13 +5,13 @@ use std::path::Path;
 
 use toml;
 
-#[derive(Clone,Deserialize)]
+#[derive(Clone, Deserialize)]
 pub struct Metadata {
     pub repos: HashMap<String, Repo>,
     pub proxy: Proxy,
 }
 
-#[derive(Clone,Deserialize)]
+#[derive(Clone, Deserialize)]
 pub struct Repo {
     pub vcs: String,
     pub cloned: bool,
@@ -20,7 +20,7 @@ pub struct Repo {
     pub topics: Vec<String>,
 }
 
-#[derive(Clone,Deserialize)]
+#[derive(Clone, Deserialize)]
 pub struct Proxy {
     pub scheme: String,
     pub host: String,
@@ -55,7 +55,7 @@ mod tests {
     use std::io::Write;
     use std::path::Path;
 
-    use super::{load,loads};
+    use super::{load, loads};
 
     static TEMP_CONTENT: &'static str = "
         [repos.'https://github.com/org/repo.git']
