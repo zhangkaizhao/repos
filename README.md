@@ -92,6 +92,8 @@ These files and directories are all in current/working directory (`pwd`).
 
 `{host}/{path_to_repo}`
 
+e.g. repo directory of url `https://example.com/org/repo.git` is `example.com/org/repo`.
+
 ## Sub-commands
 
 * `sync`: update an existed repo or clone a new repo if a repo provided, else sync all existed repos
@@ -109,9 +111,21 @@ repos sync https://github.com/org/repo.git
 repos sync
 repos remove https://github.com/org/repo.git
 repos topics
-repos topics rust
+repos topic rust
 repos stats
 repos cleanup
 repos search key_word
 repos proxy
 ```
+
+## Limitations
+
+There are some limitations now.
+
+* Relative URLs without base (scp-like syntax) are not supported.
+
+  e.g. [user@]host.xz:path/to/repo.git or [user@]host.xz:~/path/to/repo.git
+
+* The `bare` attribute of a repository is only used for cloning the repository.
+* Proxy configuration is global. This may be changed in the future.
+* Vcs only supports git and hg(Mercurial) now.
