@@ -2,8 +2,8 @@ use std::path::Path;
 use std::process::Command;
 
 use super::super::metadata::Proxy;
-use super::Vcs;
 use super::util::gen_proxy_env_vars;
+use super::Vcs;
 
 pub struct Hg;
 
