@@ -43,12 +43,16 @@ impl Repos {
         let _vcs = &repo.vcs;
         let bare = repo.bare;
         let use_proxy = repo.use_proxy;
+        let proxy = match use_proxy {
+            true => Some(self.metadata.proxy.clone()),
+            false => None,
+        };
         if relpath.is_dir() {
             // Update
-            vcs::update(_vcs, &relpath, use_proxy);
+            vcs::update(_vcs, &relpath, proxy);
         } else {
             // Clone
-            vcs::clone(_vcs, &url, &relpath, bare, use_proxy);
+            vcs::clone(_vcs, &url, &relpath, bare, proxy);
         }
     }
 

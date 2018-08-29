@@ -61,7 +61,21 @@ bare = false
 use_proxy = false
 topics = ["docs", "wiki"]
 
+[repos."https://gist.github.com/maximilianhurl/cb5507354fc8be812c1e3a578627001f.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = true
+topics = ["python_lib", "apistar", "sqlalchemy", "demo"]
+
+[repos."https://gist.github.com/njsmith/78f68204c5d969f8c8bc645ef77d4a8f.git"]
+vcs = "git"
+cloned = true
+bare = false
+use_proxy = true
+topics = ["python_lib", "configuration_file_format", "json", "yaml", "toml"]
+
 [proxy]
-scheme = "socks5"
+scheme = "http"
 host = "127.0.0.1"
-port = 1080
+port = 8118

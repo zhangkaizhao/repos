@@ -57,6 +57,10 @@ Run `repos search {key word}`.
 
 Run `repos proxy`.
 
+### Change proxy configuration
+
+Edit `proxy` section in metadata file.
+
 ## Metadata
 
 See `Repos.template.toml` for overview.

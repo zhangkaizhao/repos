@@ -69,3 +69,9 @@ pub fn delete_repo_relpath(relpath: &Path) {
     }
     println!("Please manually delete repo from metadata file.");
 }
+
+/// Generate http proxy url.
+pub fn gen_proxy_url(scheme: &str, host: &str, port: u16) -> String {
+    let proxy_url = scheme.to_owned() + "://" + host + ":" + &port.to_string();
+    proxy_url.to_string()
+}
