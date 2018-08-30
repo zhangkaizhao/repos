@@ -1,8 +1,8 @@
 /// Repos subcommands:
-
 /// - sync
 /// - remove
 /// - topics
+/// - topic
 /// - stats
 /// - cleanup
 /// - search
@@ -41,6 +41,7 @@ impl Repos {
         let local_relpath = util::repo_url_to_relpath(url);
         let relpath = Path::new(&local_relpath);
         let _vcs = &repo.vcs;
+        // TODO cloned
         let bare = repo.bare;
         let use_proxy = repo.use_proxy;
         let proxy = match use_proxy {
@@ -139,6 +140,7 @@ impl Repos {
         // repos count by each topic
         // repos by server (host[:port])
 
+        // TODO repos not cloned?
         // TODO repos not synced?
 
         let repositories = self.metadata.repos.clone();
@@ -183,6 +185,13 @@ impl Repos {
 
     pub fn cleanup(&self) {
         // Find out repo directories which are not in metadata, then delete them.
+        // TODO
+
+        // cleanup unused empty directories
+        // walk from root to sub-directories to find out first empty sub-directory then remove it
+        // BFS
+        let root_path = Path::new(self.root_dir);
+        util::cleanup_empty_subdirs(root_path);
     }
 
     pub fn search(&self, keyword: &str) {

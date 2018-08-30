@@ -16,6 +16,7 @@ impl Hg {
 
 impl Vcs for Hg {
     fn clone(&self, url: &str, path: &Path, bare: bool, proxy: Option<Proxy>) {
+        // TODO bare
         let proxy_env_vars = gen_proxy_env_vars(proxy);
         let mut child = Command::new("hg")
             .arg("clone")

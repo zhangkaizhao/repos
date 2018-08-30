@@ -45,7 +45,6 @@ pub fn delete_repo_relpath(relpath: &Path) {
                 why.kind()
             );
         });
-        // TODO recurve removing empty directory.
         // Notify
         println!("Local repo directory: {} is deleted.", &local_relpath);
     } else if relpath.exists() {
@@ -74,4 +73,45 @@ pub fn delete_repo_relpath(relpath: &Path) {
 pub fn gen_proxy_url(scheme: &str, host: &str, port: u16) -> String {
     let proxy_url = scheme.to_owned() + "://" + host + ":" + &port.to_string();
     proxy_url.to_string()
+}
+
+/// Cleanup empty directories under root directory.
+pub fn cleanup_empty_subdirs(root_dir: &Path) {
+    _cleanup_empty_subdirs(root_dir, root_dir.clone());
+}
+
+/// Cleanup empty directories under current directory.
+fn _cleanup_empty_subdirs(dir: &Path, root_dir: &Path) {
+    let entries = fs::read_dir(dir).unwrap();
+    for entry in entries {
+        let path = entry.unwrap().path();
+        if path.is_dir() {
+            // Ignore hidden directory which starts with ".", e.g. ".git".
+            if !path.file_name().unwrap().to_str().unwrap().starts_with(".") {
+                _cleanup_empty_dirs(&path, &root_dir.clone());
+            }
+        }
+    }
+}
+
+/// Cleanup empty directories including current directory.
+fn _cleanup_empty_dirs(dir: &Path, root_dir: &Path) {
+    if dir == root_dir {
+        // The parent directory may be root directory.
+        _cleanup_empty_subdirs(&dir, &root_dir);
+    } else {
+        // Try to remove empty directory.
+        match fs::remove_dir(&dir) {
+            Ok(_) => {
+                println!("Empty directory {} is removed.", dir.display());
+                // Then try to remove parent empty directory.
+                let parent_dir = dir.parent().unwrap();
+                _cleanup_empty_dirs(&parent_dir, &root_dir.clone());
+            }
+            Err(_) => {
+                // Not empty directory, continue to its sub-directories.
+                _cleanup_empty_subdirs(&dir, &root_dir);
+            }
+        }
+    }
 }

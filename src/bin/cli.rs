@@ -15,6 +15,7 @@ fn main() {
                 "sync" => _repos.sync_all(),
                 "topics" => _repos.topics(),
                 "stats" => _repos.stats(),
+                "cleanup" => _repos.cleanup(),
                 "proxy" => _repos.proxy(),
                 _ => println!("Sorry, not implemented yet!"),
             }

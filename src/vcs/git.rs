@@ -16,6 +16,7 @@ impl Git {
 
 impl Vcs for Git {
     fn clone(&self, url: &str, path: &Path, bare: bool, proxy: Option<Proxy>) {
+        // TODO bare
         let proxy_env_vars = gen_proxy_env_vars(proxy);
         let mut child = Command::new("git")
             .arg("clone")
