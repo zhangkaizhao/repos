@@ -79,6 +79,7 @@ impl Repos {
         let repositories = self.metadata.repos.clone();
         for (url, repo) in &repositories {
             // TODO handle subprocess exceptions.
+            println!("Try to sync repo: {}", &url);
             self._sync(&url, &repo);
         }
     }
@@ -184,12 +185,9 @@ impl Repos {
     }
 
     pub fn cleanup(&self) {
-        // Find out repo directories which are not in metadata, then delete them.
-        // TODO
+        // TODO Find out repo directories which are not in metadata, then delete them.
 
         // cleanup unused empty directories
-        // walk from root to sub-directories to find out first empty sub-directory then remove it
-        // BFS
         let root_path = Path::new(self.root_dir);
         util::cleanup_empty_subdirs(root_path);
     }
