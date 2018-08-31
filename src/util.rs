@@ -86,32 +86,36 @@ fn _cleanup_empty_subdirs(dir: &Path, root_dir: &Path) {
     for entry in entries {
         let path = entry.unwrap().path();
         if path.is_dir() {
-            // Ignore hidden directory which starts with ".", e.g. ".git".
+            // Ignore hidden directories which start with ".", e.g. ".git".
             if !path.file_name().unwrap().to_str().unwrap().starts_with(".") {
-                _cleanup_empty_dirs(&path, &root_dir.clone());
+                let removed = _try_to_remove_empty_dir(&path, &root_dir.clone());
+                if !removed {
+                    // Not empty directory. Continue to its sub-directories.
+                    _cleanup_empty_subdirs(&path, &root_dir);
+                }
             }
         }
     }
 }
 
-/// Cleanup empty directories including current directory.
-fn _cleanup_empty_dirs(dir: &Path, root_dir: &Path) {
+/// Try to recursively remove empty directories upwards.
+fn _try_to_remove_empty_dir(dir: &Path, root_dir: &Path) -> bool {
     if dir == root_dir {
-        // The parent directory may be root directory.
-        _cleanup_empty_subdirs(&dir, &root_dir);
-    } else {
-        // Try to remove empty directory.
-        match fs::remove_dir(&dir) {
-            Ok(_) => {
-                println!("Empty directory {} is removed.", dir.display());
-                // Then try to remove parent empty directory.
-                let parent_dir = dir.parent().unwrap();
-                _cleanup_empty_dirs(&parent_dir, &root_dir.clone());
-            }
-            Err(_) => {
-                // Not empty directory, continue to its sub-directories.
-                _cleanup_empty_subdirs(&dir, &root_dir);
-            }
+        // No need to remove root directories. Always return true for root directories.
+        return true;
+    }
+    // Try to remove empty directory.
+    match fs::remove_dir(&dir) {
+        Ok(_) => {
+            println!("Empty directory {} is removed.", dir.display());
+            // Then try to remove parent directory.
+            let parent_dir = dir.parent().unwrap();
+            _try_to_remove_empty_dir(&parent_dir, &root_dir.clone());
+            true
+        }
+        Err(_) => {
+            // Not empty directory.
+            false
         }
     }
 }
