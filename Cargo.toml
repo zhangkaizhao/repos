@@ -8,6 +8,7 @@ serde = "1.0.71"
 serde_derive = "1.0.71"
 toml = "0.4.6"
 url = "1.7.1"
+remove_empty_subdirs = "~0.1.0"
 
 [dev-dependencies]
 tempfile = "3"

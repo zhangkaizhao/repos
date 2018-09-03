@@ -10,6 +10,8 @@
 use std::collections::BTreeMap;
 use std::path::Path;
 
+use remove_empty_subdirs::remove_empty_subdirs;
+
 use metadata;
 use util;
 use vcs;
@@ -189,7 +191,10 @@ impl Repos {
 
         // cleanup unused empty directories
         let root_path = Path::new(self.root_dir);
-        util::cleanup_empty_subdirs(root_path);
+        match remove_empty_subdirs(root_path) {
+            Ok(()) => {}
+            Err(err) => println!("Unexpected error: {:?}", err.to_string()),
+        }
     }
 
     pub fn search(&self, keyword: &str) {
