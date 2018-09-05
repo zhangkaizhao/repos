@@ -11,7 +11,7 @@ pub trait Vcs {
     fn clone(&self, url: &str, path: &Path, bare: bool, proxy: Option<Proxy>);
 
     /// Update an existed repo in path.
-    fn update(&self, path: &Path, proxy: Option<Proxy>);
+    fn update(&self, path: &Path, bare: bool, proxy: Option<Proxy>);
 }
 
 /// Clone a new repo to path by vcs.
@@ -24,10 +24,10 @@ pub fn clone(vcs: &str, url: &str, path: &Path, bare: bool, proxy: Option<Proxy>
 }
 
 /// Update an existed repo in path by vcs.
-pub fn update(vcs: &str, path: &Path, proxy: Option<Proxy>) {
+pub fn update(vcs: &str, path: &Path, bare: bool, proxy: Option<Proxy>) {
     match vcs {
-        "git" => git::Git::new().update(path, proxy),
-        "hg" => hg::Hg::new().update(path, proxy),
+        "git" => git::Git::new().update(path, bare, proxy),
+        "hg" => hg::Hg::new().update(path, bare, proxy),
         _ => panic!("Not supported vcs: {}", vcs),
     }
 }

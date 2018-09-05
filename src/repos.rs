@@ -52,7 +52,7 @@ impl Repos {
         };
         if relpath.is_dir() {
             // Update
-            vcs::update(_vcs, &relpath, proxy);
+            vcs::update(_vcs, &relpath, bare, proxy);
         } else {
             // Clone
             vcs::clone(_vcs, &url, &relpath, bare, proxy);
@@ -106,7 +106,7 @@ impl Repos {
         // repos count by each topic
         let repositories = self.metadata.repos.clone();
         let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
-        for (url, repo) in &repositories {
+        for (_, repo) in &repositories {
             let topics = &repo.topics;
             for topic in topics {
                 let counter = topic_repo_counts.entry(&topic).or_insert(0);

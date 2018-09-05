@@ -16,12 +16,18 @@ impl Hg {
 
 impl Vcs for Hg {
     fn clone(&self, url: &str, path: &Path, bare: bool, proxy: Option<Proxy>) {
-        // TODO bare
+        // Build command arguments.
+        let mut args = Vec::new();
+        args.push("clone");
+        if bare {
+            args.push("--noupdate");
+        }
+        args.push(url);
+        args.push(path.to_str().unwrap());
+
         let proxy_env_vars = gen_proxy_env_vars(proxy);
         let mut child = Command::new("hg")
-            .arg("clone")
-            .arg(url)
-            .arg(path)
+            .args(&args)
             .envs(&proxy_env_vars)
             .spawn()
             .unwrap();
@@ -29,10 +35,17 @@ impl Vcs for Hg {
         ()
     }
 
-    fn update(&self, path: &Path, proxy: Option<Proxy>) {
+    fn update(&self, path: &Path, bare: bool, proxy: Option<Proxy>) {
+        // Build command arguments.
+        let mut args = Vec::new();
+        args.push("pull");
+        if !bare {
+            args.push("--update");
+        }
+
         let proxy_env_vars = gen_proxy_env_vars(proxy);
         let mut child = Command::new("hg")
-            .arg("update")
+            .args(&args)
             .current_dir(path)
             .envs(&proxy_env_vars)
             .spawn()

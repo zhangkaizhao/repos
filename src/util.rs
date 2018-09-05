@@ -26,6 +26,7 @@ pub fn repo_url_to_relpath(url: &str) -> String {
         None => host.to_owned() + path,
         _ => host.to_owned() + ":" + &port.unwrap().to_string() + path,
     };
+    // TODO bare repository needs ".git" suffix?
     relpath.trim_right_matches(".git").to_string()
 }
 
