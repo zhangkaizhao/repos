@@ -89,7 +89,7 @@ impl Repos {
             self._sync(&url, &repo);
         } else {
             // Warn if no same url or alternative url exists in metadata.
-            panic!("Repo `{}` has not been put in metadata yet.", url);
+            panic!("Repository `{}` has not been put in metadata yet.", url);
         }
     }
 
@@ -99,7 +99,7 @@ impl Repos {
         let repositories = self.metadata.repos.clone();
         for (url, repo) in &repositories {
             // TODO handle subprocess exceptions.
-            println!("Sync repo `{}`...", &url);
+            println!("Sync repository `{}`...", &url);
             self._sync(&url, &repo);
         }
     }
@@ -116,7 +116,7 @@ impl Repos {
             util::delete_repo_relpath(relpath);
         } else {
             // warn
-            panic!("Repo has not been put in metadata yet.");
+            panic!("Repository `{}` has not been put in metadata yet.", url);
         }
     }
 
@@ -132,7 +132,7 @@ impl Repos {
             }
         }
         let topics_count = topic_repo_counts.len();
-        println!("There are {} topics now:", topics_count);
+        println!("There are {} topics:", topics_count);
         for (topic, counter) in &topic_repo_counts {
             println!("* {}: {} repositories", &topic, counter);
         }
@@ -148,7 +148,7 @@ impl Repos {
                 urls.push(url);
             }
         }
-        println!("Topic: {} has {} repositories:", _topic, urls.len());
+        println!("Topic `{}` has {} repositories:", _topic, urls.len());
         urls.sort_unstable();
         for url in urls {
             println!("* {}", url)
@@ -188,16 +188,16 @@ impl Repos {
             *server_counter += 1;
         }
 
-        println!("There are totally {} repositories.", repositories_count);
+        println!("There are {} repositories.", repositories_count);
 
         let topics_count = topic_repo_counts.len();
-        println!("There are {} topics now:", topics_count);
+        println!("There are {} topics:", topics_count);
         for (topic, counter) in &topic_repo_counts {
             println!("* {}: {} repositories", &topic, counter);
         }
 
         let servers_count = server_repo_counts.len();
-        println!("There are {} servers now:", servers_count);
+        println!("There are {} servers:", servers_count);
         for (server, counter) in &server_repo_counts {
             println!("* {}: {} repositories", server, counter);
         }

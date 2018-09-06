@@ -19,7 +19,7 @@ pub fn clone(vcs: &str, url: &str, path: &Path, bare: bool, proxy: Option<Proxy>
     match vcs {
         "git" => git::Git::new().clone(url, path, bare, proxy),
         "hg" => hg::Hg::new().clone(url, path, bare, proxy),
-        _ => panic!("Not supported vcs: {}", vcs),
+        _ => panic!("Not supported vcs `{}`.", vcs),
     }
 }
 
@@ -28,6 +28,6 @@ pub fn update(vcs: &str, path: &Path, bare: bool, proxy: Option<Proxy>) {
     match vcs {
         "git" => git::Git::new().update(path, bare, proxy),
         "hg" => hg::Hg::new().update(path, bare, proxy),
-        _ => panic!("Not supported vcs: {}", vcs),
+        _ => panic!("Not supported vcs `{}`.", vcs),
     }
 }

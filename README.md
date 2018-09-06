@@ -4,7 +4,7 @@ A simple command tool to manage local repositories.
 
 ## Note
 
-The metadata of local repos should be managed by user self manually.
+The metadata of local repository should be managed by user self manually.
 The `repos` command tool only reads the metadata for operations and never modifies it.
 
 Please take a look at https://github.com/toml-lang/toml to get a quick introduction of toml format.
@@ -15,41 +15,41 @@ Please take a look at https://github.com/toml-lang/toml to get a quick introduct
 
 See `Repos.sample.toml` for sample.
 
-### Add a new repo
+### Add a new repoistory
 
-1. Put new repo metadata to `Repos.toml`
+1. Put new repository metadata to `Repos.toml`
 2. Run `repos sync {repo_url}`
 
-### Update an existed repo
+### Update an existed repository
 
 Run `repos sync {repo_url}`.
 
-### Remove an existed repo
+### Remove an existed repository
 
-1. Delete repo metadata from `Repos.toml`
-2. Run `repos remove {repo_url}`
+1. Run `repos remove {repo_url}`
+2. Delete repository metadata from `Repos.toml`
 
-### Update all repos in metadata
+### Update all repositories in metadata
 
 Run `repos sync`.
 
-### List repos of topic
+### List repositories of a topic
 
 Run `repos topic {topic}`.
 
-### List all topics with count of their repos
+### List all topics with count of their repositories
 
 Run `repos topics`.
 
-### Output stats of all local repos
+### Output stats of all repositories
 
 Run `repos stats`.
 
-###  Clean up broken local repos
+###  Clean up broken local repositories
 
 Run `repos cleanup`.
 
-### Search local repos
+### Search local repositories
 
 Run `repos search {key word}`.
 
@@ -65,7 +65,7 @@ Edit `proxy` section in metadata file.
 
 See `Repos.template.toml` for overview.
 
-### repo
+### repository
 
 - `url`: follow usage of vcs
 - `vcs`: version control system. choices: git, hg
@@ -88,21 +88,22 @@ These files and directories are all in current/working directory (`pwd`).
 
 `Repos.toml`
 
-### repo directory
+### repository directory
 
 `{host}/{path_to_repo}`
 
-e.g. repo directory of url `https://example.com/org/repo.git` is `example.com/org/repo`.
+e.g. repository directory of url `https://example.com/org/repo.git` is `example.com/org/repo`.
 
 ## Sub-commands
 
-* `sync`: update an existed repo or clone a new repo if a repo provided, else sync all existed repos
-* `remove`: remove an existed repo
-* `topics`: list repos of topic if a topic provided, else list all topics with count of their repos
-* `stats`: output stats of all repos
-* `cleanup`: clean up broken repos
-* `search: search local repos by key word
-* `proxy`: output proxy configuration
+* sync: update or clone if a repository url provided, else synchronize all repositories in metadata
+* remove: remove directory of a local repository
+* topics: list all topics with count of their repositories
+* topic: list repositries of a topic in metadata
+* stats: output stats of all repositories in metadata
+* cleanup: clean up broken repositories
+* search: search local repositories by key word
+* proxy: output proxy configuration
 
 Examples:
 
