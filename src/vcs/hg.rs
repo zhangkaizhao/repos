@@ -26,13 +26,13 @@ impl Vcs for Hg {
         args.push(path.to_str().unwrap());
 
         let proxy_env_vars = gen_proxy_env_vars(proxy);
-        let mut child = Command::new("hg")
-            .args(&args)
-            .envs(&proxy_env_vars)
-            .spawn()
-            .unwrap();
-        let _result = child.wait().unwrap();
-        ()
+        match Command::new("hg").args(&args).envs(&proxy_env_vars).spawn() {
+            Ok(mut child) => match child.wait() {
+                Ok(_status) => {}
+                Err(err) => println!("Failed to clone repository: {}", err.to_string()),
+            },
+            Err(err) => println!("Failed to execute hg clone: {}", err.to_string()),
+        }
     }
 
     fn update(&self, path: &Path, bare: bool, proxy: Option<Proxy>) {
@@ -44,13 +44,17 @@ impl Vcs for Hg {
         }
 
         let proxy_env_vars = gen_proxy_env_vars(proxy);
-        let mut child = Command::new("hg")
+        match Command::new("hg")
             .args(&args)
             .current_dir(path)
             .envs(&proxy_env_vars)
             .spawn()
-            .unwrap();
-        let _result = child.wait().unwrap();
-        ()
+        {
+            Ok(mut child) => match child.wait() {
+                Ok(_status) => {}
+                Err(err) => println!("Failed to update repository: {}", err.to_string()),
+            },
+            Err(err) => println!("Failed to execute hg pull: {}", err.to_string()),
+        }
     }
 }

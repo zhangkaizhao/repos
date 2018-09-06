@@ -96,7 +96,6 @@ impl Manager {
         // 1. Read each repo from metadata.
         // 2. Update each repo.
         for (url, repo) in &self.metadata.repos {
-            // TODO handle subprocess exceptions.
             println!("Sync repository `{}`...", &url);
             self._sync(&url, &repo);
         }

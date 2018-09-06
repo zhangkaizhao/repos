@@ -26,13 +26,17 @@ impl Vcs for Git {
         args.push(path.to_str().unwrap());
 
         let proxy_env_vars = gen_proxy_env_vars(proxy);
-        let mut child = Command::new("git")
+        match Command::new("git")
             .args(&args)
             .envs(&proxy_env_vars)
             .spawn()
-            .unwrap();
-        let _result = child.wait().unwrap();
-        ()
+        {
+            Ok(mut child) => match child.wait() {
+                Ok(_status) => {}
+                Err(err) => println!("Failed to clone repository: {}", err.to_string()),
+            },
+            Err(err) => println!("Failed to execute git clone: {}", err.to_string()),
+        }
     }
 
     fn update(&self, path: &Path, bare: bool, proxy: Option<Proxy>) {
@@ -45,13 +49,23 @@ impl Vcs for Git {
         }
 
         let proxy_env_vars = gen_proxy_env_vars(proxy);
-        let mut child = Command::new("git")
+        match Command::new("git")
             .args(&args)
             .current_dir(path)
             .envs(&proxy_env_vars)
             .spawn()
-            .unwrap();
-        let _result = child.wait().unwrap();
-        ()
+        {
+            Ok(mut child) => match child.wait() {
+                Ok(_status) => {}
+                Err(err) => println!("Failed to update repository: {}", err.to_string()),
+            },
+            Err(err) => {
+                if bare {
+                    println!("Failed to execute git fetch: {}", err.to_string());
+                } else {
+                    println!("Failed to execute git pull: {}", err.to_string());
+                }
+            }
+        }
     }
 }
