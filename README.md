@@ -69,7 +69,7 @@ See `Repos.template.toml` for overview.
 
 - `url`: follow usage of vcs
 - `vcs`: version control system. choices: git, hg
-- `cloned`: whether cloned, or just marked
+- `allow_sync`: whether synchronized to local, or just marked in metadata
 - `bare`: whether bare
 - `use_proxy`: whether using proxy for sync
 - `topics`: topics belong to

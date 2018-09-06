@@ -40,10 +40,14 @@ impl Repos {
     }
 
     fn _sync(&self, url: &str, repo: &metadata::Repo) {
+        if !repo.allow_sync {
+            println!("No need to sync `{}` because of disallowed.", url);
+            return ();
+        }
+
         let local_relpath = util::repo_url_to_relpath(url);
         let relpath = Path::new(&local_relpath);
         let _vcs = &repo.vcs;
-        // TODO cloned
         let bare = repo.bare;
         let use_proxy = repo.use_proxy;
         let proxy = match use_proxy {
@@ -77,7 +81,8 @@ impl Repos {
                 // Warn if alternative url exists in metadata.
                 panic!(
                     "Warning: repository with alternative url `{}` exists already.",
-                    alternative_url);
+                    alternative_url
+                );
             }
 
             let repo = repositories.get(url).unwrap();
@@ -156,8 +161,7 @@ impl Repos {
         // repos count by each topic
         // repos by server (host[:port])
 
-        // TODO repos not cloned?
-        // TODO repos not synced?
+        // TODO repos allow synced but not cloned yet?
 
         let repositories = self.metadata.repos.clone();
 

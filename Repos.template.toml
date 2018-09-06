@@ -1,6 +1,6 @@
 [repos.{url}]
 vcs = {vcs}
-cloned = true
+allow_sync = true
 bare = false
 use_proxy = false
 topics = [{topic1}, {topic2}]

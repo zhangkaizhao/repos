@@ -14,7 +14,7 @@ pub struct Metadata {
 #[derive(Clone, Deserialize)]
 pub struct Repo {
     pub vcs: String,
-    pub cloned: bool,
+    pub allow_sync: bool,
     pub bare: bool,
     pub use_proxy: bool,
     pub topics: Vec<String>,
@@ -60,7 +60,7 @@ mod tests {
     static TEMP_CONTENT: &'static str = "
         [repos.'https://github.com/org/repo.git']
         vcs = 'git'
-        cloned = true
+        allow_sync = true
         bare = false
         use_proxy = false
         topics = ['topic1', 'topic2']
