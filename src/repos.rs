@@ -67,10 +67,23 @@ impl Repos {
         // 3. Update if repo directory exists.
         let repositories = self.metadata.repos.clone();
         if repositories.contains_key(url) {
+            // Check if url +/- '.git' exists.
+            let alternative_url = if url.ends_with(".git") {
+                url.trim_right_matches(".git").to_string()
+            } else {
+                url.to_string() + ".git"
+            };
+            if repositories.contains_key(&alternative_url) {
+                // Warn if alternative url exists in metadata.
+                panic!(
+                    "Warning: repository with alternative url `{}` exists already.",
+                    alternative_url);
+            }
+
             let repo = repositories.get(url).unwrap();
             self._sync(&url, &repo);
         } else {
-            // warn
+            // Warn if no same url or alternative url exists in metadata.
             panic!("Repo has not been put in metadata yet.");
         }
     }
