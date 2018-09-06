@@ -17,23 +17,22 @@ use util;
 use vcs;
 
 #[derive(Clone)]
-pub struct Repos {
+pub struct Manager {
     root_dir: &'static str,
     metadata: metadata::Metadata,
 }
 
-impl Repos {
+impl Manager {
     /// Create a new `Repos`.
     pub fn new() -> Self {
         let root_path = Path::new(".");
         let root_dir = root_path.to_str().unwrap();
 
-        // let md_file = root_dir.to_owned() + "/Repos.toml";
         let md_file = "Repos.toml";
         let md_path = Path::new(&md_file);
         let md = metadata::load(&md_path);
 
-        Repos {
+        Manager {
             root_dir: root_dir,
             metadata: md,
         }

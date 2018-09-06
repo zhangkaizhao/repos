@@ -4,7 +4,7 @@ extern crate remove_empty_subdirs;
 extern crate toml;
 extern crate url;
 
+pub mod manager;
 pub mod metadata;
-pub mod repos;
 pub mod util;
 pub mod vcs;

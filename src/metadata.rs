@@ -37,7 +37,7 @@ pub fn load(path: &Path) -> Metadata {
     let mut content = String::new();
     match file.read_to_string(&mut content) {
         Err(why) => panic!("Couldn't read {}: {}", path_display, why.to_string()),
-        Ok(_) => println!("Read metadata from {} successfully.", path_display),
+        Ok(_) => {}
     }
 
     loads(&content)
