@@ -99,7 +99,7 @@ e.g. repository directory of url `https://example.com/org/repo.git` is `example.
 * `sync`: update or clone if a repository url provided, else synchronize all repositories in metadata
 * `remove`: remove directory of a local repository
 * `topics`: list all topics with count of their repositories
-* `topic`: list repositries of a topic in metadata
+* `topic`: list repositories of a topic in metadata
 * `stats`: output stats of all repositories in metadata
 * `cleanup`: clean up broken repositories
 * `search`: search local repositories by key word
