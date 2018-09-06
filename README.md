@@ -35,7 +35,7 @@ Run `repos sync`.
 
 ### List repos of topic
 
-Run `repos topics {topic}`.
+Run `repos topic {topic}`.
 
 ### List all topics with count of their repos
 

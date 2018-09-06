@@ -89,7 +89,7 @@ impl Repos {
             self._sync(&url, &repo);
         } else {
             // Warn if no same url or alternative url exists in metadata.
-            panic!("Repo has not been put in metadata yet.");
+            panic!("Repo `{}` has not been put in metadata yet.", url);
         }
     }
 
@@ -99,7 +99,7 @@ impl Repos {
         let repositories = self.metadata.repos.clone();
         for (url, repo) in &repositories {
             // TODO handle subprocess exceptions.
-            println!("Try to sync repo: {}", &url);
+            println!("Sync repo `{}`...", &url);
             self._sync(&url, &repo);
         }
     }
