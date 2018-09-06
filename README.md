@@ -125,7 +125,7 @@ There are some limitations now.
 
 * Relative URLs without base (scp-like syntax) are not supported.
 
-  e.g. [user@]host.xz:path/to/repo.git or [user@]host.xz:~/path/to/repo.git
+  e.g. `[user@]host.xz:path/to/repo.git` or `[user@]host.xz:~/path/to/repo.git`
 
 * The `bare` attribute of a repository is only used for cloning the repository.
 * Proxy configuration is global. This may be changed in the future.

@@ -69,7 +69,7 @@ impl Repos {
         // 1.1 Warn repo does not exist in metadata, should be manually added first.
         // 2. Clone if repo directory does not exist.
         // 3. Update if repo directory exists.
-        let repositories = self.metadata.repos.clone();
+        let repositories = &self.metadata.repos;
         if repositories.contains_key(url) {
             // Check if url +/- '.git' exists.
             let alternative_url = if url.ends_with(".git") {
@@ -96,8 +96,7 @@ impl Repos {
     pub fn sync_all(&self) {
         // 1. Read each repo from metadata.
         // 2. Update each repo.
-        let repositories = self.metadata.repos.clone();
-        for (url, repo) in &repositories {
+        for (url, repo) in &self.metadata.repos {
             // TODO handle subprocess exceptions.
             println!("Sync repository `{}`...", &url);
             self._sync(&url, &repo);
@@ -109,7 +108,7 @@ impl Repos {
         // 1.1 Warn repo exists in metadata, should be manually deleted first.
         // 2. Delete repo directory.
         // 3. Notify user to manually delete repo from metadata file.
-        let repositories = self.metadata.repos.clone();
+        let repositories = &self.metadata.repos;
         if repositories.contains_key(url) {
             let local_relpath = util::repo_url_to_relpath(url);
             let relpath = Path::new(&local_relpath);
@@ -122,9 +121,8 @@ impl Repos {
 
     pub fn topics(&self) {
         // repos count by each topic
-        let repositories = self.metadata.repos.clone();
         let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
-        for (_, repo) in &repositories {
+        for (_, repo) in &self.metadata.repos {
             let topics = &repo.topics;
             for topic in topics {
                 let counter = topic_repo_counts.entry(&topic).or_insert(0);
@@ -140,9 +138,8 @@ impl Repos {
 
     pub fn topic(&self, _topic: &str) {
         // list all repos in topic
-        let repositories = self.metadata.repos.clone();
         let mut urls = Vec::new();
-        for (url, repo) in &repositories {
+        for (url, repo) in &self.metadata.repos {
             let topics = &repo.topics;
             if topics.contains(&_topic.to_string()) {
                 urls.push(url);
@@ -163,14 +160,12 @@ impl Repos {
 
         // TODO repos allow synced but not cloned yet?
 
-        let repositories = self.metadata.repos.clone();
-
         let mut repositories_count = 0;
         let mut vcs_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
         let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
         let mut server_repo_counts: BTreeMap<String, i32> = BTreeMap::new();
 
-        for (url, repo) in &repositories {
+        for (url, repo) in &self.metadata.repos {
             repositories_count += 1;
 
             let vcs = &repo.vcs;
@@ -216,10 +211,9 @@ impl Repos {
 
     pub fn search(&self, keyword: &str) {
         // Query topics and repo_url in metadata to find out matched repos
-        let repositories = self.metadata.repos.clone();
         let mut urls_by_url = Vec::new();
         let mut urls_by_topic: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
-        for (url, repo) in &repositories {
+        for (url, repo) in &self.metadata.repos {
             if url.contains(&keyword) {
                 urls_by_url.push(url);
             }
@@ -251,7 +245,7 @@ impl Repos {
     }
 
     pub fn proxy(&self) {
-        let proxy = self.metadata.proxy.clone();
+        let proxy = &self.metadata.proxy;
         println!("Proxy configuration:");
         println!("* scheme: {}", proxy.scheme);
         println!("* host: {}", proxy.host);
