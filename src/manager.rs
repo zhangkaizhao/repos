@@ -86,17 +86,17 @@ impl Manager {
             };
             if repositories.contains_key(&alternative_url) {
                 // Warn if alternative url exists in metadata.
-                panic!(
+                println!(
                     "Warning: repository with alternative url {} exists already.",
                     alternative_url
                 );
+            } else {
+                let repo = repositories.get(url).unwrap();
+                self._sync(&url, &repo);
             }
-
-            let repo = repositories.get(url).unwrap();
-            self._sync(&url, &repo);
         } else {
             // Warn if no same url or alternative url exists in metadata.
-            panic!("Repository {} has not been put in metadata yet.", url);
+            println!("Repository {} has not been put in metadata yet.", url);
         }
     }
 
@@ -121,7 +121,7 @@ impl Manager {
             util::delete_repo_relpath(relpath);
         } else {
             // warn
-            panic!("Repository {} has not been put in metadata yet.", url);
+            println!("Repository {} has not been put in metadata yet.", url);
         }
     }
 
