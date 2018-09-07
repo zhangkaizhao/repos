@@ -5,7 +5,13 @@ extern crate repos;
 use std::env;
 
 fn main() {
-    let manager = repos::manager::Manager::new();
+    let manager = match repos::manager::Manager::new() {
+        Ok(manager) => manager,
+        Err(err) => {
+            println!("{}", err.to_string());
+            return ();
+        }
+    };
     let args: Vec<String> = env::args().collect();
 
     match args.len() {
@@ -17,7 +23,7 @@ fn main() {
                 "stats" => manager.stats(),
                 "cleanup" => manager.cleanup(),
                 "proxy" => manager.proxy(),
-                _ => println!("Sorry, not implemented yet!"),
+                _ => unimplemented!(),
             }
         }
         3 => {
@@ -28,7 +34,7 @@ fn main() {
                 "remove" => manager.remove(&argument),
                 "topic" => manager.topic(&argument),
                 "search" => manager.search(&argument),
-                _ => println!("Sorry, not implemented yet!"),
+                _ => unimplemented!(),
             }
         }
         _ => println!("Usage: repos subcommand [argument]"),

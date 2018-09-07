@@ -12,29 +12,37 @@ use std::path::Path;
 
 use remove_empty_subdirs::remove_empty_subdirs;
 
-use metadata;
+use metadata::{self, Metadata};
 use util;
 use vcs;
 
 #[derive(Clone)]
 pub struct Manager {
     root_dir: &'static str,
-    metadata: metadata::Metadata,
+    metadata: Metadata,
 }
 
 impl Manager {
     /// Create a new `Manager`.
-    pub fn new() -> Self {
+    pub fn new() -> Result<Self, String> {
         let root_path = Path::new(".");
         let root_dir = root_path.to_str().unwrap();
 
         let md_file = "Repos.toml";
         let md_path = Path::new(&md_file);
-        let md = metadata::load(&md_path);
 
-        Manager {
-            root_dir: root_dir,
-            metadata: md,
+        match metadata::load(&md_path) {
+            Ok(md) => {
+                let manager = Manager {
+                    root_dir: root_dir,
+                    metadata: md,
+                };
+                Ok(manager)
+            }
+            Err(err) => Err(format!(
+                "Couldn't load metadata because of: {}",
+                err.to_string()
+            )),
         }
     }
 

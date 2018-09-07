@@ -27,25 +27,42 @@ pub struct Proxy {
     pub port: u16,
 }
 
-pub fn load(path: &Path) -> Metadata {
+pub fn load(path: &Path) -> Result<Metadata, String> {
     let path_display = path.display();
     let mut file = match File::open(&path) {
-        Err(why) => panic!("Couldn't open {}: {}", path_display, why.to_string()),
         Ok(file) => file,
+        Err(err) => {
+            return Err(format!(
+                "Couldn't open {}: {}",
+                path_display,
+                err.to_string()
+            ))
+        }
     };
 
     let mut content = String::new();
     match file.read_to_string(&mut content) {
-        Err(why) => panic!("Couldn't read {}: {}", path_display, why.to_string()),
         Ok(_) => {}
+        Err(err) => {
+            return Err(format!(
+                "Couldn't read {}: {}",
+                path_display,
+                err.to_string()
+            ))
+        }
     }
 
     loads(&content)
 }
 
-pub fn loads(content: &str) -> Metadata {
-    let metadata: Metadata = toml::from_str(&content).unwrap();
-    metadata
+pub fn loads(content: &str) -> Result<Metadata, String> {
+    match toml::from_str(&content) {
+        Ok(md) => Ok(md),
+        Err(err) => Err(format!(
+            "Couldn't parse as toml format because of: {}",
+            err.to_string()
+        )),
+    }
 }
 
 #[cfg(test)]
@@ -73,7 +90,7 @@ mod tests {
 
     #[test]
     fn md_loads() {
-        let md = loads(&TEMP_CONTENT);
+        let md = loads(&TEMP_CONTENT).unwrap();
 
         assert_eq!(md.proxy.scheme, "socks5");
         assert_eq!(md.proxy.host, "127.0.0.1");
@@ -88,7 +105,7 @@ mod tests {
         let path = tmpfile.path();
 
         let filepath = Path::new(path);
-        let md = load(&filepath);
+        let md = load(&filepath).unwrap();
 
         assert_eq!(md.proxy.scheme, "socks5");
         assert_eq!(md.proxy.host, "127.0.0.1");
