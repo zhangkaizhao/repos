@@ -75,3 +75,17 @@ pub fn gen_proxy_url(scheme: &str, host: &str, port: u16) -> String {
     let proxy_url = scheme.to_owned() + "://" + host + ":" + &port.to_string();
     proxy_url.to_string()
 }
+
+/// Generate alternative url for vcs.
+pub fn gen_alternative_url(vcs: &str, url: &str) -> Result<String, String> {
+    if vcs == "git" {
+        let alternative_url = if url.ends_with(".git") {
+            url.trim_right_matches(".git").to_string()
+        } else {
+            url.to_string() + ".git"
+        };
+        Ok(alternative_url)
+    } else {
+        Err(format!("Unsupported vcs `{}`.", vcs))
+    }
+}

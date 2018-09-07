@@ -78,11 +78,14 @@ impl Manager {
         // 3. Update if repo directory exists.
         let repositories = &self.metadata.repos;
         if repositories.contains_key(url) {
+            let repo = repositories.get(url).unwrap();
             // Check if url +/- '.git' exists.
-            let alternative_url = if url.ends_with(".git") {
-                url.trim_right_matches(".git").to_string()
-            } else {
-                url.to_string() + ".git"
+            let alternative_url = match util::gen_alternative_url(&repo.vcs, url) {
+                Ok(alternative_url) => alternative_url,
+                Err(err) => {
+                    println!("{}", err.to_string());
+                    return ();
+                }
             };
             if repositories.contains_key(&alternative_url) {
                 // Warn if alternative url exists in metadata.
@@ -91,7 +94,6 @@ impl Manager {
                     alternative_url
                 );
             } else {
-                let repo = repositories.get(url).unwrap();
                 self._sync(&url, &repo);
             }
         } else {
