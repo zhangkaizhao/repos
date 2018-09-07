@@ -36,38 +36,44 @@ pub fn delete_repo_relpath(relpath: &Path) {
     if relpath.is_dir() {
         // Delete repo directory
         println!(
-            "Found repo directory: {}. Try to delete it...",
+            "Found repository directory {}. Try to delete it...",
             &local_relpath
         );
-        fs::remove_dir_all(relpath).unwrap_or_else(|why| {
-            println!(
-                "Failed to delete repo directory: {}: {:?}.",
+        match fs::remove_dir_all(relpath) {
+            Ok(_) => {
+                println!("Local repository directory {} is deleted.", &local_relpath);
+                println!("Please manually delete repository from metadata file.");
+            }
+            Err(err) => println!(
+                "Failed to delete repository directory {} because of: {}",
                 &local_relpath,
-                why.kind()
-            );
-        });
-        // Notify
-        println!("Local repo directory: {} is deleted.", &local_relpath);
+                err.to_string()
+            ),
+        }
     } else if relpath.exists() {
         // Delete it whatever.
         println!(
-            "The repo path: {} is not a directory. Try to delete it whatever...",
+            "The repository path {} is not a directory. Try to delete it whatever...",
             &local_relpath
         );
-        fs::remove_file(relpath).unwrap_or_else(|why| {
-            println!(
-                "Failed to delete repo path: {}: {:?}.",
+        match fs::remove_file(relpath) {
+            Ok(_) => {
+                println!("Local repository path {} is deleted.", &local_relpath);
+                println!("Please manually delete repository from metadata file.");
+            }
+            Err(err) => println!(
+                "Failed to delete repository path {} because of: {}",
                 &local_relpath,
-                why.kind()
-            );
-        });
-        // Notify
-        println!("Local repo path: {} is deleted.", &local_relpath);
+                err.to_string()
+            ),
+        }
     } else {
         // Repo directory does not exist.
-        println!("The repo directory: {} does not exists.", &local_relpath);
+        println!(
+            "The repository directory {} does not exists.",
+            &local_relpath
+        );
     }
-    println!("Please manually delete repo from metadata file.");
 }
 
 /// Generate http proxy url.
