@@ -52,7 +52,7 @@ impl Manager {
             return ();
         }
 
-        let local_relpath = util::repo_url_to_relpath(url);
+        let local_relpath = util::repo_url_to_relpath(url).unwrap();
         let relpath = Path::new(&local_relpath);
         let _vcs = &repo.vcs;
         let bare = repo.bare;
@@ -118,7 +118,7 @@ impl Manager {
         // 3. Notify user to manually delete repo from metadata file.
         let repositories = &self.metadata.repos;
         if repositories.contains_key(url) {
-            let local_relpath = util::repo_url_to_relpath(url);
+            let local_relpath = util::repo_url_to_relpath(url).unwrap();
             let relpath = Path::new(&local_relpath);
             util::delete_repo_relpath(relpath);
         } else {
@@ -186,7 +186,7 @@ impl Manager {
                 *counter += 1;
             }
 
-            let server = util::repo_server_from_url(&url);
+            let server = util::repo_server_from_url(&url).unwrap();
             let server_counter = server_repo_counts.entry(server).or_insert(0);
             *server_counter += 1;
         }

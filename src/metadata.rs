@@ -5,6 +5,8 @@ use std::path::Path;
 
 use toml;
 
+use super::util;
+
 #[derive(Clone, Deserialize)]
 pub struct Metadata {
     pub repos: HashMap<String, Repo>,
@@ -56,12 +58,33 @@ pub fn load(path: &Path) -> Result<Metadata, String> {
 }
 
 pub fn loads(content: &str) -> Result<Metadata, String> {
-    match toml::from_str(&content) {
-        Ok(md) => Ok(md),
-        Err(err) => Err(format!(
-            "Couldn't parse as toml format because of: {}",
-            err.to_string()
-        )),
+    let md: Metadata = match toml::from_str(&content) {
+        Ok(md) => md,
+        Err(err) => {
+            return Err(format!(
+                "Couldn't parse as toml format because of: {}",
+                err.to_string()
+            ));
+        }
+    };
+
+    // Validate repo url.
+    let mut urls_errors: HashMap<String, String> = HashMap::new();
+    for url in md.repos.keys() {
+        match util::validate_repo_url(url) {
+            Err(err) => {
+                urls_errors.insert(url.to_string(), err.to_string());
+            }
+            Ok(_) => {}
+        }
+    }
+    if !urls_errors.is_empty() {
+        for (url, error) in urls_errors {
+            println!("Url `{}` is unsupported because of: {}.", url, error);
+        }
+        Err("Unsupported repository urls found in metadata file.".to_string())
+    } else {
+        Ok(md)
     }
 }
 
