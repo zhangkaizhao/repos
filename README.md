@@ -15,7 +15,7 @@ Please take a look at https://github.com/toml-lang/toml to get a quick introduct
 
 See `Repos.sample.toml` for sample.
 
-### Add a new repoistory
+### Add a new repository
 
 1. Put new repository metadata to `Repos.toml`
 2. Run `repos sync {repo_url}`
@@ -45,13 +45,13 @@ Run `repos topics`.
 
 Run `repos stats`.
 
-###  Clean up broken local repositories
+###  Clean up broken repositories
 
 Run `repos cleanup`.
 
-### Search local repositories
+### Search repositories
 
-Run `repos search {key word}`.
+Run `repos search {keyword}`.
 
 ### Output proxy configuration
 
@@ -97,12 +97,12 @@ e.g. repository directory of url `https://example.com/org/repo.git` is `example.
 ## Sub-commands
 
 * `sync`: update or clone if a repository url provided, else synchronize all repositories
-* `remove`: remove directory of a local repository
+* `remove`: remove local directory of a repository
 * `topics`: list all topics with count of their repositories
 * `topic`: list repositories of a topic
 * `stats`: output stats of all repositories
-* `cleanup`: clean up broken repositories
-* `search`: search local repositories by key word
+* `cleanup`: clean up unused resources
+* `search`: search repositories by keyword
 * `proxy`: output proxy configuration
 
 Examples:

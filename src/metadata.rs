@@ -29,6 +29,7 @@ pub struct Proxy {
     pub port: u16,
 }
 
+/// Load metadata from file path.
 pub fn load(path: &Path) -> Result<Metadata, String> {
     let path_display = path.display();
     let mut file = match File::open(&path) {
@@ -57,6 +58,7 @@ pub fn load(path: &Path) -> Result<Metadata, String> {
     loads(&content)
 }
 
+/// Load metadata from string slices.
 pub fn loads(content: &str) -> Result<Metadata, String> {
     let md: Metadata = match toml::from_str(&content) {
         Ok(md) => md,

@@ -1,0 +1,196 @@
+.TH "REPOS" "1" "September 2018" "A repository manager" "Repos Manual"
+.hy
+.SH NAME
+.PP
+repos \- A repository manager
+.SH SYNOPSIS
+.PP
+\f[I]repos\f[] <COMMAND> [<ARGS>...]
+.SH DESCRIPTION
+.PP
+A simple command tool to manage local repositories.
+.SH OPTIONS
+.TP
+.B \-h, \-\-help
+Display a help message.
+.RS
+.RE
+.TP
+.B \-V, \-\-version
+Print version information and exit.
+.RS
+.RE
+.SH COMMANDS
+.PP
+To get extended information about commands, run \f[I]repos help
+<command>\f[]
+.TP
+.B repos sync [url]
+Update or clone if a repository url provided, else synchronize all repositories.
+.RS
+.RE
+.TP
+.B repos remove [url]
+Remove local directory of a repository.
+.RS
+.RE
+.TP
+.B repos topics
+List all topics with count of their repositories.
+.RS
+.RE
+.TP
+.B repos topic [foobar]
+List repositories of a topic.
+.RS
+.RE
+.TP
+.B repos stats
+Output stats of all repositories.
+.RS
+.RE
+.TP
+.B repos cleanup
+Clean up broken repositories.
+.RS
+.RE
+.TP
+.B repos search [keyword]
+Search repositories by keyword.
+.RS
+.RE
+.TP
+.B repos proxy
+Output proxy configuration.
+.RS
+.RE
+.SH FILES
+.TP
+.B Repos.toml
+File in which Repos stores repository metadata.
+
+There is a `Repos.template.toml` in the source distribution which content is:
+.sp
+.if n \{\
+.nf
+[repos.{url}]
+vcs = {vcs}
+allow_sync = true
+bare = false
+use_proxy = false
+topics = [{topic1}, {topic2}]
+
+[proxy]
+scheme = {scheme}
+host = {host}
+port = {port}
+.fi
+.if n \{\
+.RS
+.RE
+.SH EXAMPLES
+.PP
+First, a repository metadata file named \fBRepos.toml\fR is required in current working directory.
+.PP Prepare your metadata file
+.PP
+See \fBRepos.sample.toml\fR in source distribution for sample.
+.PP
+Add a new repoistory
+.IP
+.nf
+\f[C]
+$\ # Put new repository metadata to \fBRepos.toml\fR
+$\ repos\ sync https://example.com/org/repo.git
+\f[]
+.fi
+.PP
+Update an existed repository
+.IP
+.nf
+\f[C]
+$\ repos\ sync\ https://example.com/org/repo.git
+\f[]
+.fi
+.PP
+Remove an existed repository
+.IP
+.nf
+\f[C]
+$\ repos\ remove\ https://example.com/org/repo.git
+$\ # Delete repository metadata from \fBRepos.toml\fR
+\f[]
+.fi
+.PP
+Update all repositories
+.IP
+.nf
+\f[C]
+$\ repos\ sync
+\f[]
+.fi
+.PP
+List all topics with count of their repositories
+.IP
+.nf
+\f[C]
+$\ repos\ topics
+\f[]
+.fi
+.PP
+List repositories of a topic
+.IP
+.nf
+\f[C]
+$\ repos\ topic\ foobar
+\f[]
+.fi
+.PP
+Output stats of all repositories
+.IP
+.nf
+\f[C]
+$\ repos\ stats
+\f[]
+.fi
+.PP
+Clean up broken repositories
+.IP
+.nf
+\f[C]
+$\ repos\ cleanup
+\f[]
+.fi
+.PP
+Search repositories
+.IP
+.nf
+\f[C]
+$\ repos\ search\ keyword
+\f[]
+.fi
+.PP
+Output proxy configuration
+.IP
+.nf
+\f[C]
+$\ repos\ proxy
+\f[]
+.fi
+.PP
+Change proxy configuration
+.IP
+.nf
+\f[C]
+$\ # Edit `proxy` section in metadata file.
+\f[]
+.fi
+.SH SEE ALSO
+.PP
+<https://github.com/zhangkaizhao/repos> Source Repository.
+.SH BUGS
+.PP
+See <https://github.com/zhangkaizhao/repos/issues> for issues.
+.SH COPYRIGHT
+.PP
+This work is dual\-licensed under Apache 2.0 and MIT terms.
+See \f[I]COPYRIGHT\f[] file in the repos source distribution.

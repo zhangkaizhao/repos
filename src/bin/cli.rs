@@ -50,10 +50,10 @@ fn main() {
         .subcommand(SubCommand::with_name("cleanup").about("clean up broken repositories"))
         .subcommand(
             SubCommand::with_name("search")
-                .about("search local repositories by key word")
+                .about("search local repositories by keyword")
                 .arg(
                     Arg::with_name("keyword")
-                        .help("key word to search")
+                        .help("keyword to search")
                         .index(1)
                         .required(true),
                 ),

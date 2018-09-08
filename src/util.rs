@@ -3,9 +3,11 @@ use std::path::Path;
 
 use url::Url;
 
-/// Validate repo url.
+/// Validate repository url.
+///
 /// Notes:
 /// * Relative URLs without base (scp-like syntax) are not supported.
+///
 ///   e.g. `[user@]host.xz:path/to/repo.git` or `[user@]host.xz:~/path/to/repo.git`
 pub fn validate_repo_url(url: &str) -> Result<(), String> {
     match Url::parse(url) {
@@ -14,7 +16,7 @@ pub fn validate_repo_url(url: &str) -> Result<(), String> {
     }
 }
 
-/// Get repo server (host[:port]) from repo url.
+/// Get repository server (host[:port]) from repository url.
 pub fn repo_server_from_url(url: &str) -> Result<String, String> {
     let parsed = match Url::parse(url) {
         Ok(parsed) => parsed,
@@ -30,7 +32,7 @@ pub fn repo_server_from_url(url: &str) -> Result<String, String> {
     Ok(server.to_string())
 }
 
-/// Convert repo url to relative repo directory.
+/// Convert repository url to relative repository directory.
 pub fn repo_url_to_relpath(url: &str) -> Result<String, String> {
     let parsed = match Url::parse(url) {
         Ok(parsed) => parsed,
@@ -47,7 +49,7 @@ pub fn repo_url_to_relpath(url: &str) -> Result<String, String> {
     Ok(relpath.trim_right_matches(".git").to_string())
 }
 
-/// Delete repo relative path.
+/// Delete repository relative path.
 pub fn delete_repo_relpath(relpath: &Path) {
     let local_relpath = relpath.to_str().unwrap();
     if relpath.is_dir() {

@@ -1,11 +1,11 @@
-/// Repos subcommands:
-/// - sync
-/// - remove
+/// Subcommands:
+/// - sync [url]
+/// - remove [url]
 /// - topics
-/// - topic
+/// - topic [topic]
 /// - stats
 /// - cleanup
-/// - search
+/// - search [keyword]
 /// - proxy
 use std::collections::BTreeMap;
 use std::path::Path;
@@ -73,7 +73,7 @@ impl Manager {
         }
     }
 
-    /// Update an existed repo or clone a new repo.
+    /// Update an existed repository or clone a new repository.
     pub fn sync(&self, url: &str) {
         // 1. Check whether repo exists in metadata.
         // 1.1 Warn repo does not exist in metadata, should be manually added first.
@@ -105,6 +105,7 @@ impl Manager {
         }
     }
 
+    /// Update all repositories.
     pub fn sync_all(&self) {
         // 1. Read each repo from metadata.
         // 2. Update each repo.
@@ -114,6 +115,7 @@ impl Manager {
         }
     }
 
+    /// Remove local directory of a repository.
     pub fn remove(&self, url: &str) {
         // 1. Check whether repo exists in metadata.
         // 1.1 Warn repo exists in metadata, should be manually deleted first.
@@ -130,6 +132,7 @@ impl Manager {
         }
     }
 
+    /// Output topics with count of their repositories.
     pub fn topics(&self) {
         // repos count by each topic
         let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
@@ -147,6 +150,7 @@ impl Manager {
         }
     }
 
+    /// List repositories of a topic.
     pub fn topic(&self, _topic: &str) {
         // list all repos in topic
         let mut urls = Vec::new();
@@ -163,6 +167,7 @@ impl Manager {
         }
     }
 
+    /// Output stats of all repositories.
     pub fn stats(&self) {
         // total repos count
         // repos count by vcs
@@ -209,6 +214,7 @@ impl Manager {
         }
     }
 
+    /// Clean up unused resources.
     pub fn cleanup(&self) {
         // TODO Find out repo directories which are not in metadata, then delete them.
 
@@ -220,6 +226,7 @@ impl Manager {
         }
     }
 
+    /// Search repositories by keyword.
     pub fn search(&self, keyword: &str) {
         // Query topics and repo_url in metadata to find out matched repos
         let mut urls_by_url = Vec::new();
@@ -255,6 +262,7 @@ impl Manager {
         }
     }
 
+    /// Output proxy configuration.
     pub fn proxy(&self) {
         let proxy = &self.metadata.proxy;
         println!("Proxy configuration:");
