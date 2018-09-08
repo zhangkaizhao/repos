@@ -80,7 +80,7 @@ pub fn loads(content: &str) -> Result<Metadata, String> {
     }
     if !urls_errors.is_empty() {
         for (url, error) in urls_errors {
-            println!("Url `{}` is unsupported because of: {}.", url, error);
+            println!("Url '{}' is unsupported because of: {}.", url, error);
         }
         Err("Unsupported repository urls found in metadata file.".to_string())
     } else {

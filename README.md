@@ -29,7 +29,7 @@ Run `repos sync {repo_url}`.
 1. Run `repos remove {repo_url}`
 2. Delete repository metadata from `Repos.toml`
 
-### Update all repositories in metadata
+### Update all repositories
 
 Run `repos sync`.
 
@@ -96,11 +96,11 @@ e.g. repository directory of url `https://example.com/org/repo.git` is `example.
 
 ## Sub-commands
 
-* `sync`: update or clone if a repository url provided, else synchronize all repositories in metadata
+* `sync`: update or clone if a repository url provided, else synchronize all repositories
 * `remove`: remove directory of a local repository
 * `topics`: list all topics with count of their repositories
-* `topic`: list repositories of a topic in metadata
-* `stats`: output stats of all repositories in metadata
+* `topic`: list repositories of a topic
+* `stats`: output stats of all repositories
 * `cleanup`: clean up broken repositories
 * `search`: search local repositories by key word
 * `proxy`: output proxy configuration

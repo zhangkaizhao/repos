@@ -29,9 +29,9 @@ impl Vcs for Hg {
         match Command::new("hg").args(&args).envs(&proxy_env_vars).spawn() {
             Ok(mut child) => match child.wait() {
                 Ok(_status) => {}
-                Err(err) => println!("Failed to clone repository: {}", err.to_string()),
+                Err(err) => println!("Failed to clone repository because of: {}", err.to_string()),
             },
-            Err(err) => println!("Failed to execute hg clone: {}", err.to_string()),
+            Err(err) => println!("Failed to execute hg clone because of: {}", err.to_string()),
         }
     }
 
@@ -52,9 +52,12 @@ impl Vcs for Hg {
         {
             Ok(mut child) => match child.wait() {
                 Ok(_status) => {}
-                Err(err) => println!("Failed to update repository: {}", err.to_string()),
+                Err(err) => println!(
+                    "Failed to update repository because of: {}",
+                    err.to_string()
+                ),
             },
-            Err(err) => println!("Failed to execute hg pull: {}", err.to_string()),
+            Err(err) => println!("Failed to execute hg pull because of: {}", err.to_string()),
         }
     }
 }

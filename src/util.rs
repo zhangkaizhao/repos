@@ -53,16 +53,19 @@ pub fn delete_repo_relpath(relpath: &Path) {
     if relpath.is_dir() {
         // Delete repo directory
         println!(
-            "Found repository directory {}. Try to delete it...",
+            "Found repository directory '{}'. Try to delete it...",
             &local_relpath
         );
         match fs::remove_dir_all(relpath) {
             Ok(_) => {
-                println!("Local repository directory {} is deleted.", &local_relpath);
+                println!(
+                    "Local repository directory '{}' is deleted.",
+                    &local_relpath
+                );
                 println!("Please manually delete repository from metadata file.");
             }
             Err(err) => println!(
-                "Failed to delete repository directory {} because of: {}",
+                "Failed to delete repository directory '{}' because of: {}",
                 &local_relpath,
                 err.to_string()
             ),
@@ -70,16 +73,16 @@ pub fn delete_repo_relpath(relpath: &Path) {
     } else if relpath.exists() {
         // Delete it whatever.
         println!(
-            "The repository path {} is not a directory. Try to delete it whatever...",
+            "The repository path '{}' is not a directory. Try to delete it whatever...",
             &local_relpath
         );
         match fs::remove_file(relpath) {
             Ok(_) => {
-                println!("Local repository path {} is deleted.", &local_relpath);
+                println!("Local repository path '{}' is deleted.", &local_relpath);
                 println!("Please manually delete repository from metadata file.");
             }
             Err(err) => println!(
-                "Failed to delete repository path {} because of: {}",
+                "Failed to delete repository path '{}' because of: {}",
                 &local_relpath,
                 err.to_string()
             ),
@@ -87,7 +90,7 @@ pub fn delete_repo_relpath(relpath: &Path) {
     } else {
         // Repo directory does not exist.
         println!(
-            "The repository directory {} does not exists.",
+            "The repository directory '{}' does not exists.",
             &local_relpath
         );
     }
@@ -109,6 +112,6 @@ pub fn gen_alternative_url(vcs: &str, url: &str) -> Result<String, String> {
         };
         Ok(alternative_url)
     } else {
-        Err(format!("Unsupported vcs `{}`.", vcs))
+        Err(format!("Unsupported vcs '{}'.", vcs))
     }
 }

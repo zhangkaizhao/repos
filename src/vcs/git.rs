@@ -33,9 +33,12 @@ impl Vcs for Git {
         {
             Ok(mut child) => match child.wait() {
                 Ok(_status) => {}
-                Err(err) => println!("Failed to clone repository: {}", err.to_string()),
+                Err(err) => println!("Failed to clone repository because of: {}", err.to_string()),
             },
-            Err(err) => println!("Failed to execute git clone: {}", err.to_string()),
+            Err(err) => println!(
+                "Failed to execute git clone because of: {}",
+                err.to_string()
+            ),
         }
     }
 
@@ -57,13 +60,19 @@ impl Vcs for Git {
         {
             Ok(mut child) => match child.wait() {
                 Ok(_status) => {}
-                Err(err) => println!("Failed to update repository: {}", err.to_string()),
+                Err(err) => println!(
+                    "Failed to update repository because of: {}",
+                    err.to_string()
+                ),
             },
             Err(err) => {
                 if bare {
-                    println!("Failed to execute git fetch: {}", err.to_string());
+                    println!(
+                        "Failed to execute git fetch because of: {}",
+                        err.to_string()
+                    );
                 } else {
-                    println!("Failed to execute git pull: {}", err.to_string());
+                    println!("Failed to execute git pull because of: {}", err.to_string());
                 }
             }
         }

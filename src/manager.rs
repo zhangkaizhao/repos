@@ -48,7 +48,10 @@ impl Manager {
 
     fn _sync(&self, url: &str, repo: &metadata::Repo) {
         if !repo.allow_sync {
-            println!("No need to sync {} because of disallowed.", url);
+            println!(
+                "No need to sync respository '{}' because of disallowed.",
+                url
+            );
             return ();
         }
 
@@ -90,7 +93,7 @@ impl Manager {
             if repositories.contains_key(&alternative_url) {
                 // Warn if alternative url exists in metadata.
                 println!(
-                    "Warning: repository with alternative url {} exists already.",
+                    "Warning: repository with alternative url '{}' exists already.",
                     alternative_url
                 );
             } else {
@@ -98,7 +101,7 @@ impl Manager {
             }
         } else {
             // Warn if no same url or alternative url exists in metadata.
-            println!("Repository {} has not been put in metadata yet.", url);
+            println!("Repository '{}' has not been put in metadata yet.", url);
         }
     }
 
@@ -106,7 +109,7 @@ impl Manager {
         // 1. Read each repo from metadata.
         // 2. Update each repo.
         for (url, repo) in &self.metadata.repos {
-            println!("Sync repository {} ...", &url);
+            println!("Sync repository '{}'...", &url);
             self._sync(&url, &repo);
         }
     }
@@ -123,7 +126,7 @@ impl Manager {
             util::delete_repo_relpath(relpath);
         } else {
             // warn
-            println!("Repository {} has not been put in metadata yet.", url);
+            println!("Repository '{}' has not been put in metadata yet.", url);
         }
     }
 
@@ -153,7 +156,7 @@ impl Manager {
                 urls.push(url);
             }
         }
-        println!("Topic {} has {} repositories:", _topic, urls.len());
+        println!("Topic '{}' has {} repositories:", _topic, urls.len());
         urls.sort_unstable();
         for url in urls {
             println!("* {}", url)
@@ -213,7 +216,7 @@ impl Manager {
         let root_path = Path::new(self.root_dir);
         match remove_empty_subdirs(root_path) {
             Ok(()) => {}
-            Err(err) => println!("Unexpected error: {:?}", err.to_string()),
+            Err(err) => println!("Unexpected error: {}", err.to_string()),
         }
     }
 
