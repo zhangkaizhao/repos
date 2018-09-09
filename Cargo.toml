@@ -5,15 +5,15 @@ authors = ["Kaizhao Zhang <zhangkaizhao@gmail.com>"]
 description = "A simple command tool to manage local repositories."
 
 [dependencies]
-clap = "~2.32.0"
-remove_empty_subdirs = "~0.1.0"
-serde = "1.0.71"
-serde_derive = "1.0.71"
+clap = "2.32"
+remove_empty_subdirs = "0.1.0"
+serde = "1.0"
+serde_derive = "1.0"
 toml = "0.4.6"
-url = "1.7.1"
+url = "1.7"
 
 [dev-dependencies]
-tempfile = "3"
+tempfile = "3.0"
 
 [[bin]]
 name = "repos"
