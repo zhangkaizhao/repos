@@ -2,12 +2,20 @@
 
 A simple command tool to manage local repositories.
 
-## Note
+## Notes
+
+* Metadata file is managed by user self manually
 
 The metadata of local repository should be managed by user self manually.
 The `repos` command tool only reads the metadata for operations and never modifies it.
 
 Please take a look at https://github.com/toml-lang/toml to get a quick introduction of toml format.
+
+* Vcs support is done by spawning vcs process
+
+Currently, the `repos` command tool calls vcs process for synchronizing repositories.
+
+Please make sure to put vcs command line programs in the path environment before using `repos` command line to synchronizing repositories.
 
 ## Tutorial
 
