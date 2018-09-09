@@ -1,12 +1,17 @@
 [package]
-name = "repos"
+name = "repos-tool"
 version = "0.1.0"
 authors = ["Kaizhao Zhang <zhangkaizhao@gmail.com>"]
-description = "A simple command tool to manage local repositories."
+description = "A simple command line tool to manage local repositories."
 homepage = "https://github.com/zhangkaizhao/repos"
 readme = "README.md"
+keywords = ["cli", "management", "repositories"]
+categories = ["command-line-utilities"]
 license = "MIT/Apache-2.0"
 repository = "https://github.com/zhangkaizhao/repos"
+
+[lib]
+name = "repos"
 
 [dependencies]
 clap = "2.32"
