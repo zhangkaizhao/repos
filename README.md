@@ -45,7 +45,7 @@ Run `repos topics`.
 
 Run `repos stats`.
 
-###  Clean up broken repositories
+###  Clean up unused resources
 
 Run `repos cleanup`.
 

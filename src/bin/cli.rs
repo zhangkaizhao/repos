@@ -47,7 +47,7 @@ fn main() {
                 ),
         )
         .subcommand(SubCommand::with_name("stats").about("output stats of all repositories"))
-        .subcommand(SubCommand::with_name("cleanup").about("clean up broken repositories"))
+        .subcommand(SubCommand::with_name("cleanup").about("clean up unused resources"))
         .subcommand(
             SubCommand::with_name("search")
                 .about("search local repositories by keyword")
