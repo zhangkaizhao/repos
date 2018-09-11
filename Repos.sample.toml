@@ -1,3 +1,5 @@
+## Rust
+
 [repos."https://github.com/rust-lang/rust.wiki.git"]
 vcs = "git"
 allow_sync = true
@@ -19,6 +21,8 @@ bare = false
 use_proxy = false
 topics = ["rust", "rust_lib", "web"]
 
+## Python
+
 [repos."https://github.com/vinta/awesome-python.git"]
 vcs = "git"
 allow_sync = true
@@ -32,6 +36,8 @@ allow_sync = true
 bare = false
 use_proxy = false
 topics = ["python", "python_lib", "django", "asgi", "web"]
+
+## Crystal
 
 [repos."https://github.com/crystal-lang/crystal.wiki.git"]
 vcs = "git"
@@ -47,12 +53,16 @@ bare = false
 use_proxy = false
 topics = ["crystal", "awesome"]
 
+## Elixir
+
 [repos."https://github.com/h4cc/awesome-elixir.git"]
 vcs = "git"
 allow_sync = true
 bare = false
 use_proxy = false
 topics = ["elixir", "awesome"]
+
+## docs
 
 [repos."https://github.com/zealdocs/zeal.wiki.git"]
 vcs = "git"
@@ -61,12 +71,16 @@ bare = false
 use_proxy = false
 topics = ["docs", "wiki"]
 
+## gist::python
+
 [repos."https://gist.github.com/maximilianhurl/cb5507354fc8be812c1e3a578627001f.git"]
 vcs = "git"
 allow_sync = true
 bare = false
 use_proxy = true
 topics = ["python_lib", "apistar", "sqlalchemy", "demo"]
+
+## gist::configuration
 
 [repos."https://gist.github.com/njsmith/78f68204c5d969f8c8bc645ef77d4a8f.git"]
 vcs = "git"
