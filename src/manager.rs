@@ -169,20 +169,41 @@ impl Manager {
 
     /// Output stats of all repositories.
     pub fn stats(&self) {
-        // total repos count
+        // total/bare/sync_allowed/proxy_used/synced repos count
         // repos count by vcs
         // repos count by each topic
         // repos by server (host[:port])
 
-        // TODO repos allow synced but not cloned yet?
-
         let mut repositories_count = 0;
+        let mut bare_repo_count = 0;
+        let mut sync_allowed_repo_count = 0;
+        let mut synced_repo_count = 0;
+        let mut proxy_used_repo_count = 0;
         let mut vcs_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
         let mut topic_repo_counts: BTreeMap<&str, i32> = BTreeMap::new();
         let mut server_repo_counts: BTreeMap<String, i32> = BTreeMap::new();
 
         for (url, repo) in &self.metadata.repos {
             repositories_count += 1;
+
+            if repo.bare {
+                bare_repo_count += 1;
+            }
+
+            if repo.allow_sync {
+                sync_allowed_repo_count += 1;
+            }
+
+            if repo.use_proxy {
+                proxy_used_repo_count += 1;
+            }
+
+            let local_relpath = util::repo_url_to_relpath(url).unwrap();
+            let relpath = Path::new(&local_relpath);
+            // Only check whether local relative path is a directory.
+            if relpath.is_dir() {
+                synced_repo_count += 1;
+            }
 
             let vcs = &repo.vcs;
             let vcs_counter = vcs_repo_counts.entry(&vcs).or_insert(0);
@@ -199,7 +220,17 @@ impl Manager {
             *server_counter += 1;
         }
 
-        println!("There are {} repositories.", repositories_count);
+        println!("There are {} repositories:", repositories_count);
+        println!("* Bare: {} repositories", bare_repo_count);
+        println!("* Sync allowed: {} repositories", sync_allowed_repo_count);
+        println!("* Proxy used: {} repositories", proxy_used_repo_count);
+        println!("* Synced: {} repositories", synced_repo_count);
+
+        let vcs_count = vcs_repo_counts.len();
+        println!("There are {} vcs:", vcs_count);
+        for (vcs, counter) in &vcs_repo_counts {
+            println!("* {}: {} repositories", &vcs, counter);
+        }
 
         let topics_count = topic_repo_counts.len();
         println!("There are {} topics:", topics_count);
