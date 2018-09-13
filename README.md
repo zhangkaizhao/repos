@@ -6,20 +6,20 @@ A simple command line tool to manage local repositories.
 
 * Metadata file is managed by user self manually
 
-The metadata of local repository should be managed by user self manually.
-The `repos` command line tool only reads the metadata for operations and never modifies it.
+  The metadata of local repository should be managed by user self manually.
+  The `repos` command line tool only reads the metadata for operations and never modifies it.
 
-Please take a look at https://github.com/toml-lang/toml to get a quick introduction of toml format.
+  Please take a look at https://github.com/toml-lang/toml to get a quick introduction of toml format.
 
 * Vcs support is done by spawning vcs process
 
-Currently, the `repos` command line tool calls vcs process for synchronizing repositories.
+  Currently, the `repos` command line tool calls vcs process for synchronizing repositories.
 
-Please make sure to put vcs command line programs in the path environment before using `repos` command line to synchronizing repositories.
+  Please make sure to put vcs command line programs in the path environment before using `repos` command line to synchronizing repositories.
 
 ## Building
 
-First install Rust https://www.rust-lang.org/install.html .
+First, install Rust https://www.rust-lang.org/install.html .
 
 Then,
 
@@ -31,11 +31,13 @@ Copy the built
 `target/release/repos` (`target\release\repos.exe` in Windows)
 command line executable program to any place for use.
 
-## Tutorial
+## Tutorials
 
 ### Prepare your metadata file
 
 See `Repos.sample.toml` for sample.
+
+To use the sample metadata file, just copy it to the root directory of your repositories and rename it to `Repos.toml`.
 
 ### Add a new repository
 
@@ -49,7 +51,7 @@ Run `repos sync {repo_url}`.
 ### Remove an existed repository
 
 1. Run `repos remove {repo_url}`
-2. Delete repository metadata from `Repos.toml`
+2. Delete repository metadata from `Repos.toml` manually
 
 ### Update all repositories
 
@@ -85,7 +87,7 @@ Edit `proxy` section in metadata file.
 
 ## Metadata
 
-See `Repos.template.toml` for overview.
+See `Repos.template.toml` for an overview.
 
 ### repository
 
@@ -116,7 +118,7 @@ These files and directories are all in current/working directory (`pwd`).
 
 e.g. repository directory of url `https://example.com/org/repo.git` is `example.com/org/repo`.
 
-## Sub-commands
+## Subcommands
 
 * `sync`: update or clone if a repository url provided, else synchronize all repositories
 * `remove`: remove local directory of a repository
@@ -137,7 +139,7 @@ repos topics
 repos topic rust
 repos stats
 repos cleanup
-repos search key_word
+repos search keyword
 repos proxy
 ```
 
