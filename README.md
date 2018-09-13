@@ -17,6 +17,20 @@ Currently, the `repos` command line tool calls vcs process for synchronizing rep
 
 Please make sure to put vcs command line programs in the path environment before using `repos` command line to synchronizing repositories.
 
+## Building
+
+First install Rust https://www.rust-lang.org/install.html .
+
+Then,
+
+```sh
+cargo build --release
+```
+
+Copy the built
+`target/release/repos` (`target\release\repos.exe` in Windows)
+command line executable program to any place for use.
+
 ## Tutorial
 
 ### Prepare your metadata file
