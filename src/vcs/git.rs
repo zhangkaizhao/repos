@@ -15,7 +15,7 @@ impl Git {
 }
 
 impl Vcs for Git {
-    fn clone(&self, url: &str, path: &Path, bare: bool, proxy: Option<Proxy>) {
+    fn clone(&self, url: &str, path: &Path, bare: bool, proxy: Option<&Proxy>) {
         // Build command arguments.
         let mut args = Vec::new();
         args.push("clone");
@@ -42,7 +42,7 @@ impl Vcs for Git {
         }
     }
 
-    fn update(&self, path: &Path, bare: bool, proxy: Option<Proxy>) {
+    fn update(&self, path: &Path, bare: bool, proxy: Option<&Proxy>) {
         // Build command arguments.
         let mut args = Vec::new();
         if bare {

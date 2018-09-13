@@ -4,7 +4,7 @@ use super::super::metadata::Proxy;
 use super::super::util::gen_proxy_url;
 
 /// Generate proxy environment variables.
-pub fn gen_proxy_env_vars(proxy: Option<Proxy>) -> HashMap<String, String> {
+pub fn gen_proxy_env_vars(proxy: Option<&Proxy>) -> HashMap<String, String> {
     let mut env_vars: HashMap<String, String> = HashMap::new();
     match proxy {
         Some(_proxy) => {

@@ -16,7 +16,6 @@ use metadata::{self, Metadata};
 use util;
 use vcs;
 
-#[derive(Clone)]
 pub struct Manager {
     root_dir: &'static str,
     metadata: Metadata,
@@ -61,7 +60,7 @@ impl Manager {
         let bare = repo.bare;
         let use_proxy = repo.use_proxy;
         let proxy = match use_proxy {
-            true => Some(self.metadata.proxy.clone()),
+            true => Some(&self.metadata.proxy),
             false => None,
         };
         if relpath.is_dir() {

@@ -7,13 +7,13 @@ use toml;
 
 use super::util;
 
-#[derive(Clone, Deserialize)]
+#[derive(Deserialize)]
 pub struct Metadata {
     pub repos: HashMap<String, Repo>,
     pub proxy: Proxy,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Deserialize)]
 pub struct Repo {
     pub vcs: String,
     pub allow_sync: bool,
@@ -22,7 +22,7 @@ pub struct Repo {
     pub topics: Vec<String>,
 }
 
-#[derive(Clone, Deserialize)]
+#[derive(Deserialize)]
 pub struct Proxy {
     pub scheme: String,
     pub host: String,
