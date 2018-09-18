@@ -1,6 +1,6 @@
 [package]
 name = "repos-tool"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Kaizhao Zhang <zhangkaizhao@gmail.com>"]
 description = "A simple command line tool to manage local repositories."
 homepage = "https://github.com/zhangkaizhao/repos"
