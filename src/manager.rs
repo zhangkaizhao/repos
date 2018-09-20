@@ -82,22 +82,17 @@ impl Manager {
         if repositories.contains_key(url) {
             let repo = repositories.get(url).unwrap();
             // Check if url +/- '.git' exists.
-            let alternative_url = match util::gen_alternative_url(&repo.vcs, url) {
-                Ok(alternative_url) => alternative_url,
-                Err(err) => {
-                    println!("{}", err.to_string());
+            if let Some(alternative_url) = util::gen_alternative_url(&repo.vcs, url) {
+                if repositories.contains_key(&alternative_url) {
+                    // Warn if alternative url exists in metadata.
+                    println!(
+                        "Warning: repository with alternative url '{}' exists already.",
+                        alternative_url
+                    );
                     return ();
                 }
-            };
-            if repositories.contains_key(&alternative_url) {
-                // Warn if alternative url exists in metadata.
-                println!(
-                    "Warning: repository with alternative url '{}' exists already.",
-                    alternative_url
-                );
-            } else {
-                self._sync(&url, &repo);
             }
+            self._sync(&url, &repo);
         } else {
             // Warn if no same url or alternative url exists in metadata.
             println!("Repository '{}' has not been put in metadata yet.", url);
