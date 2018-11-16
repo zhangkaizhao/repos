@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-> TODO
+### Changed
+
+- Always rebase git repository on top of upstream
 
 ## [0.1.3] (2018-09-20)
 
