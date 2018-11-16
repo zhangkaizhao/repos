@@ -49,6 +49,7 @@ impl Vcs for Git {
             args.push("fetch");
         } else {
             args.push("pull");
+            args.push("--rebase");
         }
 
         let proxy_env_vars = gen_proxy_env_vars(proxy);
