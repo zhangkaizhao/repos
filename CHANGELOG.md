@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+-> TODO
+
+## [0.1.4] (2018-11-22)
+
 ### Changed
 
 - Always rebase git repository on top of upstream
@@ -34,7 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - First version packaged and published to crates.io
 
-[Unreleased]: https://github.com/zhangkaizhao/repos/compare/v0.1.3...HEAD
+[Unreleased]: https://github.com/zhangkaizhao/repos/compare/v0.1.4...HEAD
+[0.1.4]: https://github.com/zhangkaizhao/repos/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/zhangkaizhao/repos/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/zhangkaizhao/repos/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/zhangkaizhao/repos/compare/v0.1.0...v0.1.1
